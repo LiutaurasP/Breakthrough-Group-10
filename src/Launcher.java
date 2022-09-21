@@ -11,10 +11,10 @@ public class Launcher extends JPanel {
     int xtiles = 11;
     JFrame frame;
     int ytiles = 11;
-    private int[][] playingBoard;
+    public static int[][] playingBoard;
     int[] storage = new int[2];
     boolean playingState = false;
-    boolean whiteTurn = true;
+    public static boolean goldTurn = true;
     int px = 660;
     int py = 660;
 
@@ -46,7 +46,7 @@ public class Launcher extends JPanel {
                 int y = (e.getX()-5)/60;
                 int x = (e.getY()-50)/60;
                 System.out.println("x: " + x + ", y: " + y);
-                if(whiteTurn){
+                if(goldTurn){
                     if(!playingState){
                         if(playingBoard[x][y] == 1){
                             playingState = true;
@@ -68,7 +68,7 @@ public class Launcher extends JPanel {
                                 if(gameEnd()){
                                     System.out.println("game over");
                                 }
-                                whiteTurn = false;
+                                goldTurn = false;
                                 playingState = false;
                             }
                             else if(storage[1] + 1 == y && storage[0] - 1 == x){
@@ -76,7 +76,7 @@ public class Launcher extends JPanel {
                                 if(gameEnd()){
                                     System.out.println("game over");
                                 }
-                                whiteTurn = false;
+                                goldTurn = false;
                                 playingState = false;
                             }
                             else if(storage[1] - 1 == y && storage[0] - 1 == x){
@@ -84,7 +84,7 @@ public class Launcher extends JPanel {
                                 if(gameEnd()){
                                     System.out.println("game over");
                                 }
-                                whiteTurn = false;
+                                goldTurn = false;
                                 playingState = false;
                             }else{
                                 System.out.println("2move not possible");
@@ -92,7 +92,7 @@ public class Launcher extends JPanel {
                             }
                         }
                     }
-                }else if(!whiteTurn){
+                }else if(!goldTurn){
                     if(!playingState){
                         if(playingBoard[x][y] == 2){
                             playingState = true;
@@ -113,7 +113,7 @@ public class Launcher extends JPanel {
                                 if(gameEnd()){
                                     System.out.println("game over");
                                 }
-                                whiteTurn = true;
+                                goldTurn = true;
                                 playingState = false;
                             }
                             else if(storage[1] + 1 == y && storage[0] + 1 == x){
@@ -121,7 +121,7 @@ public class Launcher extends JPanel {
                                 if(gameEnd()){
                                     System.out.println("game over");
                                 }
-                                whiteTurn = true;
+                                goldTurn = true;
                                 playingState = false;
                             }
                             else if(storage[1] - 1 == y && storage[0] + 1 == x){
@@ -129,7 +129,7 @@ public class Launcher extends JPanel {
                                 if(gameEnd()){
                                     System.out.println("game over");
                                 }
-                                whiteTurn = true;
+                                goldTurn = true;
                                 playingState = false;
                             }else{
                                 System.out.println("4move not possible");
@@ -256,13 +256,13 @@ public class Launcher extends JPanel {
     }
 
     public void whiteMoveRight(int x, int y){
-        if(whiteTurn){
+        if(goldTurn){
             if(playingBoard[x][y]  == 1){
                 if(y !=8 ){
                     if(playingBoard[x-1][y+1] == 0 || playingBoard[x-1][y+1] == 2){
                         playingBoard[x][y] = 0;
                         playingBoard[x-1][y+1] = 1;
-                        whiteTurn = false;
+                        goldTurn = false;
                     }else{
                         System.out.println("whiteMoveRight not possible");
                     }
@@ -276,13 +276,13 @@ public class Launcher extends JPanel {
     }
 
     public void whiteMoveLeft(int x, int y){
-        if(whiteTurn){
+        if(goldTurn){
             if(playingBoard[x][y]  == 1){
                 if(y != 0){
                     if(playingBoard[x-1][y-1] == 0 || playingBoard[x-1][y-1] == 2){
                         playingBoard[x][y] = 0;
                         playingBoard[x-1][y-1] = 1;
-                        whiteTurn = false;
+                        goldTurn = false;
                     }else{
                         System.out.println("whiteMoveLeft not possible");
                     }
@@ -297,12 +297,12 @@ public class Launcher extends JPanel {
     }
 
     public void whiteMoveForward(int x, int y){
-        if(whiteTurn){
+        if(goldTurn){
             if(playingBoard[x][y] == 1){
                 if(playingBoard[x-1][y] == 0){
                     playingBoard[x][y] = 0;
                     playingBoard[x-1][y] = 1;
-                    whiteTurn = false;
+                    goldTurn = false;
                 }else{
                     System.out.println(playingBoard[x-1][y]);
                     System.out.println("1whiteMoveForward not possible");
@@ -317,13 +317,13 @@ public class Launcher extends JPanel {
         repaint();
     }
     public void blackMoveRight(int x, int y){
-        if(!whiteTurn){
+        if(!goldTurn){
             if(playingBoard[x][y]  == 2){
                 if(y !=8 ){
                     if(playingBoard[x+1][y+1] == 0 || playingBoard[x+1][y+1] == 1){
                         playingBoard[x][y] = 0;
                         playingBoard[x+1][y+1] = 2;
-                        whiteTurn = true;
+                        goldTurn = true;
                     }else{
                         System.out.println("move not possible");
                     }
@@ -338,13 +338,13 @@ public class Launcher extends JPanel {
     }
 
     public void blackMoveLeft(int x, int y){
-        if(!whiteTurn){
+        if(!goldTurn){
             if(playingBoard[x][y]  == 2){
                 if(y != 0){
                     if(playingBoard[x+1][y-1] == 0 || playingBoard[x+1][y-1] == 1){
                         playingBoard[x][y] = 0;
                         playingBoard[x+1][y-1] = 2;
-                        whiteTurn = true;
+                        goldTurn = true;
                     }else{
                         System.out.println("move not possible");
                     }
@@ -360,12 +360,12 @@ public class Launcher extends JPanel {
 
     public void blackMoveForward(int x, int y){
 
-        if(!whiteTurn){
+        if(!goldTurn){
             if(playingBoard[x][y] == 2){
                 if(playingBoard[x+1][y] == 0){
                     playingBoard[x][y] = 0;
                     playingBoard[x+1][y] = 2;
-                    whiteTurn = true;
+                    goldTurn = true;
                 }else{
                     System.out.println("move not possible");
                 }
