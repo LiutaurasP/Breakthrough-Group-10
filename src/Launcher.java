@@ -172,7 +172,7 @@ public class Launcher extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        this.setBackground(new Color(70, 0, 141));
+        this.setBackground(new Color(255, 255, 255));
 
         for (int x = 0; x<xtiles; x++){
             g.setColor(new Color(0, 41, 65));
@@ -192,8 +192,13 @@ public class Launcher extends JPanel {
                         g.fillOval(60 * x + 15, 60 * y + 15, 30, 30);
                     }
                     if (playingBoard[y][x] == 1) {
-                        g.setColor(new Color(192, 192, 192, 255));
+                        g.setColor(new Color(140, 140, 140, 255));
                         g.fillOval(60 * x + 15, 60 * y + 15, 30, 30);
+
+                    }
+                    if (playingBoard[y][x] == 3){
+                        g.setColor(new Color(255, 143, 0, 255));
+                        g.fillOval(60 * x + 10, 60 * y + 10, 40, 40);
 
                     }
 
