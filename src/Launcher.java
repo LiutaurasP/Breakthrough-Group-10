@@ -172,10 +172,10 @@ public class Launcher extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        this.setBackground(new Color(200, 200, 200));
+        this.setBackground(new Color(70, 0, 141));
 
         for (int x = 0; x<xtiles; x++){
-            g.setColor(new Color(105, 150, 95));
+            g.setColor(new Color(0, 41, 65));
             for (int y = 0; y < ytiles; y++) {
                 if((x+y)%2!=0) {
                     g.fillRect(x * px / xtiles, y * py / ytiles, px / xtiles, px / ytiles);
@@ -188,11 +188,11 @@ public class Launcher extends JPanel {
             for (int x = 0; x < xtiles; x++) {
                 for (int y = 0; y < ytiles; y++) {
                     if (playingBoard[y][x] == 2) {
-                        g.setColor(new Color(0, 0, 0));
+                        g.setColor(new Color(229, 184, 11));
                         g.fillOval(60 * x + 15, 60 * y + 15, 30, 30);
                     }
                     if (playingBoard[y][x] == 1) {
-                        g.setColor(new Color(255, 255, 255));
+                        g.setColor(new Color(192, 192, 192, 255));
                         g.fillOval(60 * x + 15, 60 * y + 15, 30, 30);
 
                     }
@@ -207,17 +207,20 @@ public class Launcher extends JPanel {
     }
 
     private void newBoard() {
-        int[][] freshBoard = new int[ytiles][xtiles];
-        for (int i = 0; i < playingBoard.length ; i++) {
-            for (int j = 0; j < playingBoard.length ; j++) {
-                if (i<2){
-                    freshBoard[i][j]=2;
-                }
-                if(i>playingBoard.length-3){
-                    freshBoard[i][j]=1;
-                }
-            }
-        }
+        int[][] freshBoard = {
+                {0,0,0,0,0,1,0,0,0,0,0},
+                {0,0,0,0,1,0,1,0,0,0,0},
+                {0,0,0,1,0,0,0,1,0,0,0},
+                {0,0,1,0,0,2,0,0,1,0,0},
+                {0,1,0,0,2,2,2,0,0,1,0},
+                {1,0,0,2,2,3,2,2,0,0,1},
+                {0,1,0,0,2,2,2,0,0,1,0},
+                {0,0,1,0,0,2,0,0,1,0,0},
+                {0,0,0,1,0,0,0,1,0,0,0},
+                {0,0,0,0,1,0,1,0,0,0,0},
+                {0,0,0,0,0,1,0,0,0,0,0},
+
+        };
         matrixUpdate(freshBoard);
     }
 
