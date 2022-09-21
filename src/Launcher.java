@@ -8,15 +8,15 @@ import java.util.Arrays;
 //white - 1
 //black - 2
 public class Launcher extends JPanel {
-    int xtiles = 8;
+    int xtiles = 11;
     JFrame frame;
-    int ytiles = 8;
+    int ytiles = 11;
     private int[][] playingBoard;
     int[] storage = new int[2];
     boolean playingState = false;
     boolean whiteTurn = true;
-    int px = 480;
-    int py = 480;
+    int px = 660;
+    int py = 660;
 
     Launcher(){
         frame = new JFrame("Chess's not so cool brother");
@@ -24,7 +24,7 @@ public class Launcher extends JPanel {
         frame.setSize(px+14,py+60);
         frame.add(this);
         frame.setVisible(true);
-
+        frame.setResizable(false);
 
         JMenuBar selectionBar = new JMenuBar();
         JMenu button1 = new JMenu("Button1");
@@ -38,12 +38,12 @@ public class Launcher extends JPanel {
         selectionBar.add(button4);
         selectionBar.add(button5);
         frame.setJMenuBar(selectionBar);
-        playingBoard = new int[8][8];
+        playingBoard = new int[11][11];
         newBoard();
         MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int y = e.getX()/60;
+                int y = (e.getX()-5)/60;
                 int x = (e.getY()-50)/60;
                 System.out.println("x: " + x + ", y: " + y);
                 if(whiteTurn){
@@ -184,21 +184,22 @@ public class Launcher extends JPanel {
         }
 
         // Draw pieces
-        for (int x = 0; x<playingBoard.length; x++){
-            for (int y = 0; y < playingBoard[x].length; y++) {
-                if (playingBoard[y][x]==2){
-                    g.setColor(new Color(0, 0, 0));
-                    g.fillOval(60*x+15,60*y+15,30,30);
-                }
-                if (playingBoard[y][x]==1){
-                    g.setColor(new Color(255, 255, 255));
-                    g.fillOval(60*x+15,60*y+15,30,30);
+        if(playingBoard!=null) {
+            for (int x = 0; x < xtiles; x++) {
+                for (int y = 0; y < ytiles; y++) {
+                    if (playingBoard[y][x] == 2) {
+                        g.setColor(new Color(0, 0, 0));
+                        g.fillOval(60 * x + 15, 60 * y + 15, 30, 30);
+                    }
+                    if (playingBoard[y][x] == 1) {
+                        g.setColor(new Color(255, 255, 255));
+                        g.fillOval(60 * x + 15, 60 * y + 15, 30, 30);
+
+                    }
 
                 }
-
             }
         }
-
 
     }
     public static void main(String[] args) {
@@ -206,7 +207,7 @@ public class Launcher extends JPanel {
     }
 
     private void newBoard() {
-        int[][] freshBoard = new int[8][8];
+        int[][] freshBoard = new int[ytiles][xtiles];
         for (int i = 0; i < playingBoard.length ; i++) {
             for (int j = 0; j < playingBoard.length ; j++) {
                 if (i<2){
