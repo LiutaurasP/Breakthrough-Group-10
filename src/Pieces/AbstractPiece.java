@@ -7,7 +7,7 @@ import GameLogic.Square;
 import java.util.ArrayList;
 
 abstract public class AbstractPiece {
-    private Team color;
+    public Team color;
     public int x, y;
 
     public AbstractPiece(Team color_, int x, int y) {
@@ -21,5 +21,7 @@ abstract public class AbstractPiece {
         return color.toString();
     }
 
-
+    public Team getColor() {
+        return color;
+    }
 }
