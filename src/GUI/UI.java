@@ -2,25 +2,20 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
 
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-
+/**
+ * A class that is the main frame of the UI. It contains board UI, menu (buttons,labels).
+ */
 public class UI extends JFrame{
     Object lock;
     BoardUI board;
 
-    public JLabel getWhoseTurn() {
-        return whoseTurn;
-    }
-
     JLabel whoseTurn;
 
+    /**
+     * Constructor for main JFrame of GUI.
+     * @param lock Thread lock that is used to wait for user input.
+     */
     public UI(Object lock) {
         this.lock = lock;
         board = new BoardUI(lock);
@@ -54,6 +49,18 @@ public class UI extends JFrame{
 
     }
 
+    /**
+     * Turn label getter.
+     * @return Returns turn label.
+     */
+    public JLabel getWhoseTurn() {
+        return whoseTurn;
+    }
+
+    /**
+     * UI board getter.
+     * @return Returns UI board.
+     */
     public BoardUI getBoard() {
         return board;
     }

@@ -7,21 +7,40 @@ import Pieces.AbstractPiece;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A class used to create a single UI tile.
+ */
 public class TileUI extends JPanel {
     Square square;
-TileUI(){
-    setBackground(Color.BLACK);
-}
 
+    /**
+     * Constructor for UI tile.
+     */
+    TileUI(){
+        setBackground(Color.BLACK);
+    }
+
+    /**
+     * A function used to assign logical tile to UI tile.
+     * @param square Logical tile.
+     */
     public void setSquare(Square square) {
         this.square = square;
         repaint();
     }
 
+    /**
+     * A function used to retrieve logical tile from UI tile.
+     * @return Returns logical tile corresponding to UI tile.
+     */
     public Square getSquare() {
         return square;
     }
 
+    /**
+     * A function that takes care of drawing the pieces.
+     * @param g the <code>Graphics</code> helper object.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
