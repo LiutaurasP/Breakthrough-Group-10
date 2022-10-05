@@ -1,9 +1,6 @@
 package GameLogic;
-
-import Pieces.AbstractPiece;
 import Pieces.Flag;
 import Pieces.RegularPiece;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -25,7 +22,7 @@ public class PlayingBoard {
 
     /**
      * Logical board getter.
-     * @return Logical board.
+     * @return Returns logical board.
      */
     public Square[][] getBoard() {
         return board;
