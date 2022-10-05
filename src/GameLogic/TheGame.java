@@ -36,8 +36,9 @@ public class TheGame {
                 while (!moved){
                     Move move = player.getMove();
                     moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY());
-                    }
+                                        }
                 moved = false;
+                // Second move
                 while (!moved){
                     Move move = player.getMove();
                     moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY());

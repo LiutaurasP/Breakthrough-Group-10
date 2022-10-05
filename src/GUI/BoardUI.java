@@ -44,17 +44,19 @@ public class BoardUI extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        int x = (e.getX()-3)/45;
-        int y = (e.getY()-3)/45;
-        click[0]=x;
-        click[1]=y;
+            int x = (e.getX() - 3) / 45;
+            int y = (e.getY() - 3) / 45;
+            click[0] = x;
+            click[1] = y;
 
-        System.out.println("x:"+x+", y:"+y +"//" +tiles[y][x].getSquare().getCurrentPiece());
-        synchronized (lock) {
-            lock.notifyAll();
+            System.out.println("x:" + x + ", y:" + y + "//" + tiles[y][x].getSquare().getCurrentPiece());
+            synchronized (lock) {
+                lock.notifyAll();
+            }
         }
 
-    }
+
+    
 
     public TileUI getTile(int x, int y) {
         return tiles[y][x];

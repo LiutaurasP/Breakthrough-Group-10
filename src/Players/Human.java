@@ -17,8 +17,9 @@ public class Human extends Player {
 
     @Override
     public Move getMove() {
-
         Move move = new Move();
+
+        while (true){
         try {
             synchronized(lock) {
                 lock.wait();
@@ -27,6 +28,8 @@ public class Human extends Player {
         catch (InterruptedException e){}
         move.oldX = ui.getBoard().click[0];
         move.oldY = ui.getBoard().click[1];
+        if (ui.getBoard().getTile(move.getOldX(),move.getOldY()).getSquare().getCurrentPiece()!=null && ui.getBoard().getTile(move.getOldX(),move.getOldY()).getSquare().getCurrentPiece().color.equals(this.team))break;
+        }
         System.out.println(move.getOldX()+" "+ move.getOldY());
         ui.getBoard().getTile(move.getOldX(),move.getOldY()).setBackground(new Color(73, 0, 0));
        // if(ui.getBoard().getTile(move.oldX,move.oldY).getSquare().getCurrentPiece().color==this.team) return null;
