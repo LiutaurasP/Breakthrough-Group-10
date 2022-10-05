@@ -4,6 +4,21 @@ import Pieces.AbstractPiece;
 
 public class Square {
     AbstractPiece currentPiece;
+    int x;
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    int y;
+    public Square(int x, int y) {
+    this.x = x;
+    this.y = y;
+    }
 
     public AbstractPiece getCurrentPiece() {
         return currentPiece;
@@ -19,6 +34,10 @@ public class Square {
 
 
     public void setCurrentPiece(AbstractPiece currentPiece) {
+        if(currentPiece!=null) {
+            currentPiece.setY(getY());
+            currentPiece.setX(getX());
+        }
         this.currentPiece = currentPiece;
     }
 }

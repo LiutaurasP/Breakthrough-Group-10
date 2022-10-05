@@ -2,14 +2,15 @@ package GameLogic;
 
 import GUI.UI;
 import Pieces.AbstractPiece;
+import Players.Move;
 import Players.Player;
 
 import java.util.ArrayList;
 
 public class TheGame {
-
-    ArrayList<Player> players = new ArrayList<>();
+    public ArrayList<Player> players = new ArrayList<>();
     PlayingBoard board;
+ //   public Boolean makingMove= false;
     UI ui;
 
     public TheGame(PlayingBoard board, Player gold, Player silver, UI ui) {
@@ -21,7 +22,24 @@ public class TheGame {
     }
 
     public void play() {
+        ui.getBoard().updateBoard(board);
 
+    while(true) {
+        for (Player player: players) {
+            if(player.getTeam()==Team.g){
+                ui.getWhoseTurn().setText("Gold's turn!");}
+            else {
+                ui.getWhoseTurn().setText("Silver's turn!");
+            }
+
+            for (int i = 0; i < 2; i++) {
+                Move move = players.get(0).getMove();
+                movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY());
+
+
+            }
+        }
+    }
     }
     //TODO: ALL POSSIBLE MOVES (PIECES MOVE LIKE ROOKS IN CHESS)
     public ArrayList<Square> getAllPossibleMoves(AbstractPiece piece) {
@@ -61,17 +79,20 @@ public class TheGame {
 
         // Capture moves
 
-            if(theBoard[y+1][x-1].getCurrentPiece()!=null && theBoard[y+1][x-1].getCurrentPiece().color!=teamOfPiece){
+            // South-West
+            if(y+1<11 && x-1>0 && theBoard[y+1][x-1].getCurrentPiece()!=null && theBoard[y+1][x-1].getCurrentPiece().color!=teamOfPiece){
                 allPossibleMoves.add(theBoard[y+1][x-1]);
             }
-            if(theBoard[y+1][x+1].getCurrentPiece()!=null && theBoard[y+1][x+1].getCurrentPiece().color!=teamOfPiece){
-                allPossibleMoves.add(theBoard[y+1][x+1]);System.out.println("hit");
+            // South-East
+            if(y+1<11 && x+1<11 && theBoard[y+1][x+1].getCurrentPiece()!=null && theBoard[y+1][x+1].getCurrentPiece().color!=teamOfPiece){
+                allPossibleMoves.add(theBoard[y+1][x+1]);
             }
-            if(theBoard[y-1][x-1].getCurrentPiece()!=null && theBoard[y-1][x-1].getCurrentPiece().color!=teamOfPiece){
+            // North-West
+            if(y-1>0 && x-1>0 && theBoard[y-1][x-1].getCurrentPiece()!=null && theBoard[y-1][x-1].getCurrentPiece().color!=teamOfPiece){
                 allPossibleMoves.add(theBoard[y-1][x-1]);
-
             }
-            if(theBoard[y-1][x+1].getCurrentPiece()!=null && theBoard[y-1][x+1].getCurrentPiece().color!=teamOfPiece){
+            // North-East
+            if(y-1>0 && x+1<11 && theBoard[y-1][x+1]!=null && theBoard[y-1][x+1].getCurrentPiece()!=null && theBoard[y-1][x+1].getCurrentPiece().color!=teamOfPiece){
                 allPossibleMoves.add(theBoard[y-1][x+1]);
 
             }
@@ -81,16 +102,24 @@ public class TheGame {
 
         return allPossibleMoves;
     }
-    public void movePiece(Square[][] arr, int oldX, int oldY, int newX, int newY){
-        AbstractPiece piece = arr[oldX][oldY].getCurrentPiece();
-        System.out.println(piece.getColor().toString());
-        ArrayList<Square> possibleMoves =  getAllPossibleMoves(piece);
-        for (int i = 0; i < possibleMoves.size(); i++) {
-            if (possibleMoves.get(i).equals(arr[newX][newY])){
-                arr[oldX][oldY].setCurrentPiece(null);
-                arr[newX][newY].setCurrentPiece(piece);
-                break;
+
+    public void movePiece(Square[][] arr, int oldX, int oldY, int newX, int newY) {
+        if (arr[oldY][oldX].getCurrentPiece() != null) {
+            AbstractPiece piece = arr[oldY][oldX].getCurrentPiece();
+            //System.out.println(piece.getColor().toString());
+            ArrayList<Square> possibleMoves = getAllPossibleMoves(piece);
+            if(possibleMoves.isEmpty()){
+                System.out.println("This piece has no valid moves, pick another one!");
+                return;
+            }
+            for (int i = 0; i < possibleMoves.size(); i++) {
+                if (possibleMoves.get(i).getX() == newX && possibleMoves.get(i).getY() == newY) {
+                    arr[oldY][oldX].setCurrentPiece(null);
+                    arr[newY][newX].setCurrentPiece(piece);
+                    ui.getBoard().updateBoard(board);
+                    System.out.println(board);
+                    break;
+                }
             }
         }
-    }
-}
+    }}

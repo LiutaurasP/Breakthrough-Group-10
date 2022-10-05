@@ -15,6 +15,7 @@ TileUI(){
 
     public void setSquare(Square square) {
         this.square = square;
+        repaint();
     }
 
     public Square getSquare() {

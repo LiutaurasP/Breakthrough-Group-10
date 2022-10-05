@@ -7,9 +7,18 @@ import java.awt.event.MouseListener;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class UI extends JFrame{
-    BoardUI board = new BoardUI();
-    public UI() {
+    Object lock;
+    BoardUI board;
 
+    public JLabel getWhoseTurn() {
+        return whoseTurn;
+    }
+
+    JLabel whoseTurn;
+
+    public UI(Object lock) {
+        this.lock = lock;
+        board = new BoardUI(lock);
         setTitle("Menu.Breakthru");
         setSize(700, 537);
         getContentPane().setBackground(Color.BLACK);
@@ -19,6 +28,9 @@ public class UI extends JFrame{
         setVisible(true);
         getContentPane().add(board);
         JPanel menu = new JPanel();
+        whoseTurn = new JLabel("");
+        whoseTurn.setForeground(Color.GREEN);
+        menu.add(whoseTurn);
         menu.setBorder(BorderFactory.createEmptyBorder(250,500,500,0));
         menu.add(new JButton("Button1"));
         menu.add(new JButton("Button2"));

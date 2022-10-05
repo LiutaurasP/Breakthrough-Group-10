@@ -43,7 +43,7 @@ public class PlayingBoard {
         Square[][] tempBoard = new Square[SIZE_OF_BOARD][SIZE_OF_BOARD];
         for (int y = 0; y < SIZE_OF_BOARD; y++) {
             for (int x = 0; x < SIZE_OF_BOARD; x++) {
-                tempBoard[y][x] = new Square();
+                tempBoard[y][x] = new Square(x,y);
             }
         }
 
