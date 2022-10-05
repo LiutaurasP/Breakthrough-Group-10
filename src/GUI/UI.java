@@ -45,7 +45,7 @@ public class UI extends JFrame{
         menu.add(undo);
         JButton quit = new JButton("Quit");
         quit.addActionListener(e -> {
-            dispose();
+            System.exit(0);
         });
         menu.add(quit);
         menu.setBackground(Color.darkGray);

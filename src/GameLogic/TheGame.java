@@ -24,15 +24,17 @@ public class TheGame {
 
     public void play() {
         ui.getBoard().updateBoard(board);
-        Boolean moved;
-        Boolean flagMove;
+        Boolean moved = false;
+        Boolean flagMove = false;
         Boolean silverWon = false;
+        Boolean attackMove = false;
 
         gameloop:
         while(true) {
             for (Player player: players) {
                 flagMove = false;
                 moved = false;
+                attackMove = false;
 
                 if(player.getTeam()==Team.g){
                     ui.getWhoseTurn().setForeground(Color.YELLOW);
@@ -44,13 +46,18 @@ public class TheGame {
                 Move move;
                 // First move
                 while (!moved){
+                    attackMove=false;
                     flagMove=false;
                     silverWon=false;
                     move = player.getMove();
-                    if(board.getBoard()[move.getOldY()][move.getOldX()].getCurrentPiece().toString().equals("f")) flagMove=true;
+                    if(board.getBoard()[move.getOldY()][move.getOldX()].getCurrentPiece().toString().equals("f")){
+                        flagMove=true;}
                     if(board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece() != null &&
                             board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece().toString().equals("f")){
                         silverWon=true;}
+                    if(board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece() !=null && (board.getBoard()[move.getOldY()][move.getOldX()].getCurrentPiece().color!=board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece().color)){
+                        attackMove=true;
+                    }
                     moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(),false);
                 }
                 if (silverWon){
@@ -59,7 +66,7 @@ public class TheGame {
                 }
                 moved = false;
                 // Second move
-                if(!flagMove) {
+                if(!flagMove && !attackMove) {
                     while (!moved) {
                         move = player.getMove();
                         moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), true);
