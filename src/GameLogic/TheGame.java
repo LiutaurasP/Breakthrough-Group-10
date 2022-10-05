@@ -33,6 +33,8 @@ public class TheGame {
 
         int x = piece.x;
         int y = piece.y;
+        Team teamOfPiece = piece.color;
+
         ArrayList<Square> allPossibleMoves = new ArrayList<>();
         Square[][] theBoard = board.getBoard();
 
@@ -57,6 +59,26 @@ public class TheGame {
             if(theBoard[i-1][x].toString()=="-")allPossibleMoves.add(theBoard[i-1][x]);
             else break;
         }
+
+        // Capture moves
+
+            if(theBoard[y+1][x-1].getCurrentPiece()!=null && theBoard[y+1][x-1].getCurrentPiece().color!=teamOfPiece){
+                allPossibleMoves.add(theBoard[y+1][x-1]);
+            }
+            if(theBoard[y+1][x+1].getCurrentPiece()!=null && theBoard[y+1][x+1].getCurrentPiece().color!=teamOfPiece){
+                allPossibleMoves.add(theBoard[y+1][x+1]);System.out.println("hit");
+            }
+            if(theBoard[y-1][x-1].getCurrentPiece()!=null && theBoard[y-1][x-1].getCurrentPiece().color!=teamOfPiece){
+                allPossibleMoves.add(theBoard[y-1][x-1]);
+
+            }
+            if(theBoard[y-1][x+1].getCurrentPiece()!=null && theBoard[y-1][x+1].getCurrentPiece().color!=teamOfPiece){
+                allPossibleMoves.add(theBoard[y-1][x+1]);
+
+            }
+
+
+
 
         return allPossibleMoves;
     }

@@ -30,8 +30,17 @@ TileUI(){
         AbstractPiece piece = square.getCurrentPiece();
         if (piece!=null){
             if(piece.getColor().equals(Team.g)) {
-                g.setColor(Color.YELLOW);
-                g.drawOval(5,5,30,30);
+                if(piece.toString().equals("f")){
+                    g.setColor(Color.CYAN);
+                    g.drawOval(6,6,30,30);
+                }
+                else{
+                    g.setColor(Color.YELLOW);
+                    g.drawOval(6,6,30,30);
+                }
+            } if(piece.getColor().equals(Team.s)) {
+                g.setColor(Color.WHITE);
+                g.drawOval(6,6,30,30);
             }
             }
     }

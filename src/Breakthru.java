@@ -16,8 +16,7 @@ public class Breakthru {
         System.out.println(board);
         TheGame game = new TheGame(board, silver, gold, ui);
         ui.getBoard().updateBoard(board);
-        System.out.println(game.getAllPossibleMoves(board.getPiece(0,5)));
-
+        System.out.println(game.getAllPossibleMoves(board.getPiece(5,1)));
     }
 
 }

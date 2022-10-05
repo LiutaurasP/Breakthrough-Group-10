@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class PlayingBoard {
     public final int SIZE_OF_BOARD = 11;
     private Square[][] board;
-    String whichBoard = "src/DifferentKindOfBoards/diamond.txt";
+    String whichBoard = "src/DifferentKindOfBoards/square.txt";
 
     public PlayingBoard() {
         this.board = createBoard();
