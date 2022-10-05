@@ -56,7 +56,7 @@ public class BoardUI extends JPanel implements MouseListener {
         }
 
 
-    
+
 
     public TileUI getTile(int x, int y) {
         return tiles[y][x];

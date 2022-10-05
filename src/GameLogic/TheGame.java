@@ -23,36 +23,57 @@ public class TheGame {
 
     public void play() {
         ui.getBoard().updateBoard(board);
-        Boolean moved = false;
+        Boolean moved;
+        Boolean flagMove;
+        Boolean silverWon = false;
 
+        gameloop:
         while(true) {
             for (Player player: players) {
+                flagMove = false;
+                moved = false;
+
                 if(player.getTeam()==Team.g){
                     ui.getWhoseTurn().setText("Gold's turn!");}
                 else {
                     ui.getWhoseTurn().setText("Silver's turn!");
                 }
+                Move move;
                 // First move
                 while (!moved){
-                    Move move = player.getMove();
-                    moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY());
-                                        }
-                moved = false;
-                // Second move
-                while (!moved){
-                    Move move = player.getMove();
-                    moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY());
+                    flagMove=false;
+                    silverWon=false;
+                    move = player.getMove();
+                    if(board.getBoard()[move.getOldY()][move.getOldX()].getCurrentPiece().toString().equals("f")) flagMove=true;
+                    if(board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece() != null &&
+                            board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece().toString().equals("f")){
+                        silverWon=true;}
+                    moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(),false);
+                }
+                if (silverWon){
+                    System.out.println("Silver won");
+                    break gameloop;
                 }
                 moved = false;
-
+                // Second move
+                if(!flagMove) {
+                    while (!moved) {
+                        move = player.getMove();
+                        moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), true);
+                    }
+                    moved = false;
+                }
             }
-
         }
+        System.out.println("Reached the end of the game loop!");
     }
 
-    //TODO: ALL POSSIBLE MOVES (PIECES MOVE LIKE ROOKS IN CHESS)
-    public ArrayList<Square> getAllPossibleMoves(AbstractPiece piece) {
 
+    public ArrayList<Square> getAllPossibleMoves(AbstractPiece piece, boolean isSecondMove) {
+        ArrayList<Square> allPossibleMoves = new ArrayList<>();
+        if(isSecondMove && piece.toString().equals("f")){
+            return allPossibleMoves;
+        }
         if(piece==null){
             return null;
         }
@@ -61,7 +82,6 @@ public class TheGame {
         int y = piece.y;
         Team teamOfPiece = piece.color;
 
-        ArrayList<Square> allPossibleMoves = new ArrayList<>();
         Square[][] theBoard = board.getBoard();
 
 
@@ -87,38 +107,38 @@ public class TheGame {
         }
 
         // Capture moves
-
+        if (!isSecondMove) {
             // South-West
-            if(y+1<11 && x-1>0 && theBoard[y+1][x-1].getCurrentPiece()!=null && theBoard[y+1][x-1].getCurrentPiece().color!=teamOfPiece){
-                allPossibleMoves.add(theBoard[y+1][x-1]);
+            if (y + 1 < 11 && x - 1 > 0 && theBoard[y + 1][x - 1].getCurrentPiece() != null && theBoard[y + 1][x - 1].getCurrentPiece().color != teamOfPiece) {
+                allPossibleMoves.add(theBoard[y + 1][x - 1]);
             }
             // South-East
-            if(y+1<11 && x+1<11 && theBoard[y+1][x+1].getCurrentPiece()!=null && theBoard[y+1][x+1].getCurrentPiece().color!=teamOfPiece){
-                allPossibleMoves.add(theBoard[y+1][x+1]);
+            if (y + 1 < 11 && x + 1 < 11 && theBoard[y + 1][x + 1].getCurrentPiece() != null && theBoard[y + 1][x + 1].getCurrentPiece().color != teamOfPiece) {
+                allPossibleMoves.add(theBoard[y + 1][x + 1]);
             }
             // North-West
-            if(y-1>0 && x-1>0 && theBoard[y-1][x-1].getCurrentPiece()!=null && theBoard[y-1][x-1].getCurrentPiece().color!=teamOfPiece){
-                allPossibleMoves.add(theBoard[y-1][x-1]);
+            if (y - 1 > 0 && x - 1 > 0 && theBoard[y - 1][x - 1].getCurrentPiece() != null && theBoard[y - 1][x - 1].getCurrentPiece().color != teamOfPiece) {
+                allPossibleMoves.add(theBoard[y - 1][x - 1]);
             }
             // North-East
-            if(y-1>0 && x+1<11 && theBoard[y-1][x+1]!=null && theBoard[y-1][x+1].getCurrentPiece()!=null && theBoard[y-1][x+1].getCurrentPiece().color!=teamOfPiece){
-                allPossibleMoves.add(theBoard[y-1][x+1]);
+            if (y - 1 > 0 && x + 1 < 11 && theBoard[y - 1][x + 1] != null && theBoard[y - 1][x + 1].getCurrentPiece() != null && theBoard[y - 1][x + 1].getCurrentPiece().color != teamOfPiece) {
+                allPossibleMoves.add(theBoard[y - 1][x + 1]);
 
             }
 
 
-
-
+        }
         return allPossibleMoves;
     }
 
-    public boolean movePiece(Square[][] arr, int oldX, int oldY, int newX, int newY) {
+    public boolean movePiece(Square[][] arr, int oldX, int oldY, int newX, int newY, boolean isSecondMove) {
         if (arr[oldY][oldX].getCurrentPiece() != null) {
             AbstractPiece piece = arr[oldY][oldX].getCurrentPiece();
             //System.out.println(piece.getColor().toString());
-            ArrayList<Square> possibleMoves = getAllPossibleMoves(piece);
+
+            ArrayList<Square> possibleMoves = getAllPossibleMoves(piece, isSecondMove);
             if (possibleMoves.isEmpty()) {
-                System.out.println("This piece has no valid moves, pick another one!");
+                System.out.println("This piece has no possible movement!");
                 return false;
             }
             for (int i = 0; i < possibleMoves.size(); i++) {
