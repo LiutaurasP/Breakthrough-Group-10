@@ -8,23 +8,41 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Class that contains logical board made out of logical squares (tiles).
+ */
 public class PlayingBoard {
     public final int SIZE_OF_BOARD = 11;
     private Square[][] board;
     String whichBoard = "src/DifferentKindOfBoards/square.txt";
 
+    /**
+     * Constructor for the logical board.
+     */
     public PlayingBoard() {
         this.board = createBoard();
     }
 
+    /**
+     * Logical board getter.
+     * @return Logical board.
+     */
     public Square[][] getBoard() {
         return board;
     }
-    public AbstractPiece getPiece(int x, int y){
-        return board[y][x].currentPiece;
-    }
-    public Square getSquare(int y, int x){ return board[y][x];}
 
+    /**
+     * A function that returns square object of logical board in specified coordinates.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @return Returns the square object in specified coordinates.
+     */
+    public Square getSquare(int x, int y){ return board[y][x];}
+
+    /**
+     * A function that builds a readable string for the current state of the logical board.
+     * @return A nicely formatted string containing the state of the board.
+     */
     @Override
     public String toString() {
         String stringBoard = "y/x 0 1 2 3 4 5 6 7 8 9 10 \n";
@@ -39,6 +57,10 @@ public class PlayingBoard {
         return stringBoard;
     }
 
+    /**
+     * A function that builds the logical board.
+     * @return Redirects return to another helper function.
+     */
     private Square[][] createBoard() {
         Square[][] tempBoard = new Square[SIZE_OF_BOARD][SIZE_OF_BOARD];
         for (int y = 0; y < SIZE_OF_BOARD; y++) {
@@ -50,6 +72,11 @@ public class PlayingBoard {
         return readFile(tempBoard);
     }
 
+    /**
+     * A helper function for createBoard(). It puts pieces according to the specified .txt layout.
+     * @param tempBoard Logical board.
+     * @return Returns a logical board matching specified layout.
+     */
     private Square[][] readFile(Square[][] tempBoard) {
         try {
             Scanner sc = new Scanner(new File(whichBoard));

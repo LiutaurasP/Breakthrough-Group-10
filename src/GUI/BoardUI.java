@@ -33,7 +33,7 @@ public class BoardUI extends JPanel implements MouseListener {
     public void updateBoard(PlayingBoard board){
         for (int y = 0; y < 11; y++) {
             for (int x = 0; x < 11; x++) {
-                tiles[y][x].setSquare(board.getSquare(y,x));
+                tiles[y][x].setSquare(board.getSquare(x,y));
             }
 
     }}
