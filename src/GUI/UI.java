@@ -10,7 +10,7 @@ public class UI extends JFrame{
     BoardUI board = new BoardUI();
     public UI() {
 
-        setTitle("Breakthru");
+        setTitle("Menu.Breakthru");
         setSize(700, 537);
         getContentPane().setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

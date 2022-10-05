@@ -12,7 +12,6 @@ public class TheGame {
     PlayingBoard board;
     UI ui;
 
-
     public TheGame(PlayingBoard board, Player gold, Player silver, UI ui) {
         this.board = board;
         this.ui = ui;
@@ -59,5 +58,17 @@ public class TheGame {
         }
 
         return allPossibleMoves;
+    }
+    public void movePiece(Square[][] arr, int oldX, int oldY, int newX, int newY){
+        AbstractPiece piece = arr[oldX][oldY].getCurrentPiece();
+        System.out.println(piece.getColor().toString());
+        ArrayList<Square> possibleMoves =  getAllPossibleMoves(piece);
+        for (int i = 0; i < possibleMoves.size(); i++) {
+            if (possibleMoves.get(i).equals(arr[newX][newY])){
+                arr[oldX][oldY].setCurrentPiece(null);
+                arr[newX][newY].setCurrentPiece(piece);
+                break;
+            }
+        }
     }
 }
