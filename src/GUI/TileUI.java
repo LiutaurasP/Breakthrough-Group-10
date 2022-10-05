@@ -29,6 +29,7 @@ TileUI(){
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         AbstractPiece piece = square.getCurrentPiece();
+        ((Graphics2D) g).setStroke(new BasicStroke(2));
         if (piece!=null){
             if(piece.getColor().equals(Team.g)) {
                 if(piece.toString().equals("f")){

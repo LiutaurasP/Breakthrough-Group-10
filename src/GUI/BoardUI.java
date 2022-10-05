@@ -28,6 +28,7 @@ public class BoardUI extends JPanel implements MouseListener {
                 tiles[y][x] = temp;
             }
         }
+
     }
     public void updateBoard(PlayingBoard board){
         for (int y = 0; y < 11; y++) {

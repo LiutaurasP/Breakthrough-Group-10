@@ -5,6 +5,7 @@ import Pieces.AbstractPiece;
 import Players.Move;
 import Players.Player;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class TheGame {
@@ -34,8 +35,10 @@ public class TheGame {
                 moved = false;
 
                 if(player.getTeam()==Team.g){
+                    ui.getWhoseTurn().setForeground(Color.YELLOW);
                     ui.getWhoseTurn().setText("Gold's turn!");}
                 else {
+                    ui.getWhoseTurn().setForeground(Color.WHITE);
                     ui.getWhoseTurn().setText("Silver's turn!");
                 }
                 Move move;
@@ -65,6 +68,8 @@ public class TheGame {
                 }
             }
         }
+        ui.getWhoseTurn().setForeground(Color.WHITE);
+        ui.getWhoseTurn().setText("Silver Won!");
         System.out.println("Reached the end of the game loop!");
     }
 
