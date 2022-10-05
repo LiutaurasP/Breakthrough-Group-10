@@ -1,8 +1,7 @@
 package GUI;
 
 import GameLogic.PlayingBoard;
-import GameLogic.Square;
-import GameLogic.TheGame;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,6 @@ public class BoardUI extends JPanel implements MouseListener {
     private final Object lock;
     public int[] click = new int[2];
 
-    Square currPiece;
     BoardUI(Object lock){
         this.lock = lock;
         setBackground(Color.WHITE);
@@ -50,11 +48,16 @@ public class BoardUI extends JPanel implements MouseListener {
         int y = (e.getY()-3)/45;
         click[0]=x;
         click[1]=y;
+
         System.out.println("x:"+x+", y:"+y +"//" +tiles[y][x].getSquare().getCurrentPiece());
         synchronized (lock) {
             lock.notifyAll();
         }
 
+    }
+
+    public TileUI getTile(int x, int y) {
+        return tiles[y][x];
     }
 
     @Override

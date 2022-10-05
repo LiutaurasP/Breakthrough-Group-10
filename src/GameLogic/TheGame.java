@@ -23,24 +23,32 @@ public class TheGame {
 
     public void play() {
         ui.getBoard().updateBoard(board);
+        Boolean moved = false;
 
-    while(true) {
-        for (Player player: players) {
-            if(player.getTeam()==Team.g){
-                ui.getWhoseTurn().setText("Gold's turn!");}
-            else {
-                ui.getWhoseTurn().setText("Silver's turn!");
+        while(true) {
+            for (Player player: players) {
+                if(player.getTeam()==Team.g){
+                    ui.getWhoseTurn().setText("Gold's turn!");}
+                else {
+                    ui.getWhoseTurn().setText("Silver's turn!");
+                }
+                // First move
+                while (!moved){
+                    Move move = player.getMove();
+                    moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY());
+                    }
+                moved = false;
+                while (!moved){
+                    Move move = player.getMove();
+                    moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY());
+                }
+                moved = false;
+
             }
 
-            for (int i = 0; i < 2; i++) {
-                Move move = players.get(0).getMove();
-                movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY());
-
-
-            }
         }
     }
-    }
+
     //TODO: ALL POSSIBLE MOVES (PIECES MOVE LIKE ROOKS IN CHESS)
     public ArrayList<Square> getAllPossibleMoves(AbstractPiece piece) {
 
@@ -58,22 +66,22 @@ public class TheGame {
 
         // Right
         for (int i = x; i < board.SIZE_OF_BOARD-1 ; i++) {
-            if(theBoard[y][i+1].toString()=="-")allPossibleMoves.add(theBoard[y][i+1]);
+            if(theBoard[y][i + 1].toString().equals("-"))allPossibleMoves.add(theBoard[y][i+1]);
             else break;
         }
         // Left
         for (int i = x; i > 0; i--) {
-            if(theBoard[y][i-1].toString()=="-")allPossibleMoves.add(theBoard[y][i-1]);
+            if(theBoard[y][i - 1].toString().equals("-"))allPossibleMoves.add(theBoard[y][i-1]);
             else break;
         }
         // Down
         for (int i = y; i < board.SIZE_OF_BOARD-1; i++) {
-            if(theBoard[i+1][x].toString()=="-")allPossibleMoves.add(theBoard[i+1][x]);
+            if(theBoard[i + 1][x].toString().equals("-"))allPossibleMoves.add(theBoard[i+1][x]);
             else break;
         }
         // Up
         for (int i = y; i > 0; i--) {
-            if(theBoard[i-1][x].toString()=="-")allPossibleMoves.add(theBoard[i-1][x]);
+            if(theBoard[i - 1][x].toString().equals("-"))allPossibleMoves.add(theBoard[i-1][x]);
             else break;
         }
 
@@ -103,14 +111,14 @@ public class TheGame {
         return allPossibleMoves;
     }
 
-    public void movePiece(Square[][] arr, int oldX, int oldY, int newX, int newY) {
+    public boolean movePiece(Square[][] arr, int oldX, int oldY, int newX, int newY) {
         if (arr[oldY][oldX].getCurrentPiece() != null) {
             AbstractPiece piece = arr[oldY][oldX].getCurrentPiece();
             //System.out.println(piece.getColor().toString());
             ArrayList<Square> possibleMoves = getAllPossibleMoves(piece);
-            if(possibleMoves.isEmpty()){
+            if (possibleMoves.isEmpty()) {
                 System.out.println("This piece has no valid moves, pick another one!");
-                return;
+                return false;
             }
             for (int i = 0; i < possibleMoves.size(); i++) {
                 if (possibleMoves.get(i).getX() == newX && possibleMoves.get(i).getY() == newY) {
@@ -118,8 +126,11 @@ public class TheGame {
                     arr[newY][newX].setCurrentPiece(piece);
                     ui.getBoard().updateBoard(board);
                     System.out.println(board);
-                    break;
+                    return true;
                 }
             }
+            return false;
         }
-    }}
+        return false;
+    }
+}
