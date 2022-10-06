@@ -1,20 +1,31 @@
 package Players;
-
 import GUI.UI;
 import GameLogic.Team;
-
 import java.awt.*;
-import java.util.ArrayList;
 
+/**
+ * A class that is instantiated for a human player.
+ */
 public class Human extends Player {
     private final Object lock;
     UI ui;
+
+    /**
+     * Constructor for a human player.
+     * @param team Which team does the human play for.
+     * @param lock Thread lock that is used to wait for user input.
+     * @param ui User Interface instance.
+     */
     public Human(Team team, Object lock, UI ui) {
         super(team);
         this.lock = lock;
         this.ui= ui;
     }
 
+    /**
+     * A function that gets a move human player made using UI.
+     * @return Returns a move a human made.
+     */
     @Override
     public Move getMove() {
         Move move = new Move();
