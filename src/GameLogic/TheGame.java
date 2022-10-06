@@ -112,9 +112,14 @@ public class TheGame {
                 }
             }
         }
-        // TODO: implement a checker for a gold player win.
-        ui.getWhoseTurn().setForeground(Color.WHITE);
-        ui.getWhoseTurn().setText("Silver Won!");
+        if (silverWon) {
+            ui.getWhoseTurn().setForeground(Color.WHITE);
+            ui.getWhoseTurn().setText("Silver Won!");
+        }
+        else {
+            ui.getWhoseTurn().setForeground(Color.YELLOW);
+            ui.getWhoseTurn().setText("Gold Won!");
+        }
         System.out.println("Reached the end of the game loop!");
     }
 
