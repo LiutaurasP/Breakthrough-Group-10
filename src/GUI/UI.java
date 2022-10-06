@@ -24,7 +24,7 @@ public class UI extends JFrame{
         getContentPane().setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //setResizable(false);
+        setResizable(false);
         setVisible(true);
         getContentPane().add(board);
         JPanel menu = new JPanel();

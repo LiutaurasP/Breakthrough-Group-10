@@ -57,7 +57,7 @@ public class SelectManually extends JFrame{
         continueBtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 frame.dispose();
-                Breakthru breakthru = new Breakthru();
+                new Breakthru();
             }
         });
 

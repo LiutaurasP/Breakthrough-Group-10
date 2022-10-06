@@ -19,7 +19,7 @@ public class Breakthru {
         System.out.println(board);
         TheGame game = new TheGame(board, silver, gold, ui);
 
-//        ui.getBoard().updateBoard(board);
+        ui.getBoard().updateBoard(board);
         System.out.println(board.toString());
         game.play();
     }

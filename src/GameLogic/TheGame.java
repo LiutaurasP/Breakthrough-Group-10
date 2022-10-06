@@ -18,7 +18,6 @@ public class TheGame {
         this.ui = ui;
         players.add(gold);
         players.add(silver);
-
     }
 
     public void play() {
@@ -38,6 +37,7 @@ public class TheGame {
                 else {
                     ui.getWhoseTurn().setText("Silver's turn!");
                 }
+
                 Move move;
                 // First move
                 while (!moved){
@@ -62,6 +62,10 @@ public class TheGame {
                         moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), true);
                     }
                     moved = false;
+                }
+                if (isFlagAtBorder(board.getBoard())){
+                    System.out.println("Gold won");
+                    break gameloop;
                 }
             }
         }
@@ -141,8 +145,8 @@ public class TheGame {
                 System.out.println("This piece has no possible movement!");
                 return false;
             }
-            for (int i = 0; i < possibleMoves.size(); i++) {
-                if (possibleMoves.get(i).getX() == newX && possibleMoves.get(i).getY() == newY) {
+            for (Square possibleMove : possibleMoves) {
+                if (possibleMove.getX() == newX && possibleMove.getY() == newY) {
                     arr[oldY][oldX].setCurrentPiece(null);
                     arr[newY][newX].setCurrentPiece(piece);
                     ui.getBoard().updateBoard(board);
@@ -151,6 +155,29 @@ public class TheGame {
                 }
             }
             return false;
+        }
+        return false;
+    }
+
+    public boolean isFlagAtBorder(Square[][] arr) {
+        int sizeBoard = board.SIZE_OF_BOARD;
+        for (int i = 0; i < sizeBoard; i++) {
+            // flag piece touches:
+            // bottom outer border
+            if(arr[sizeBoard-1][i].getCurrentPiece()!=null && arr[sizeBoard-1][i].getCurrentPiece().toString().equals("f"))
+                return true;
+
+            // right outer border
+            if(arr[i][sizeBoard-1].getCurrentPiece()!=null && arr[i][sizeBoard-1].getCurrentPiece().toString().equals("f"))
+                return true;
+
+            // top outer border
+            if(arr[0][i].getCurrentPiece()!=null && arr[0][i].getCurrentPiece().toString().equals("f"))
+                return true;
+
+            // left outer border
+            if(arr[i][0].getCurrentPiece()!=null && arr[i][0].getCurrentPiece().toString().equals("f"))
+                return true;
         }
         return false;
     }
