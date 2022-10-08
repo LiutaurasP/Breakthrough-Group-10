@@ -21,10 +21,13 @@ public class BoardUI extends JPanel implements MouseListener {
      * @param lock Thread lock that is used to wait for user input
      */
     BoardUI(Object lock){
+
         this.lock = lock;
-        setBackground(Color.WHITE);
-        setSize(500,500);
+        //this.setLocation();
+        setBackground(Color.darkGray);
+
         addMouseListener(this);
+
         GridLayout grid = new GridLayout(11, 11,3,3);
 
         setLayout(grid);
@@ -35,9 +38,17 @@ public class BoardUI extends JPanel implements MouseListener {
                 tiles[y][x] = temp;
             }
         }
-
+        setSize(551,550);
     }
 
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(new Color(255, 255, 255));
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(3));
+
+        g.drawRect( 151, 149, 249,251);
+    }
     /**
      * A function that refreshes the UI board to the most current logical board.
      * @param board Current board.
@@ -50,6 +61,7 @@ public class BoardUI extends JPanel implements MouseListener {
 
     }}
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -61,8 +73,9 @@ public class BoardUI extends JPanel implements MouseListener {
      */
     @Override
     public void mousePressed(MouseEvent e) {
-            int x = (e.getX() - 3) / 45;
-            int y = (e.getY() - 3) / 45;
+        System.out.println(e.getX()+" "+e.getY());
+            int x = (e.getX() - 3) / 50;
+            int y = (e.getY() - 3) / 50;
             click[0] = x;
             click[1] = y;
 

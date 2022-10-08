@@ -48,20 +48,20 @@ public class TileUI extends JPanel {
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         AbstractPiece piece = square.getCurrentPiece();
-        ((Graphics2D) g).setStroke(new BasicStroke(2));
+        ((Graphics2D) g).setStroke(new BasicStroke(3));
         if (piece!=null){
             if(piece.getColor().equals(Team.g)) {
                 if(piece.toString().equals("f")){
                     g.setColor(Color.CYAN);
-                    g.drawOval(6,6,30,30);
+                    g.drawOval(5,5,36,36);
                 }
                 else{
                     g.setColor(Color.YELLOW);
-                    g.drawOval(6,6,30,30);
+                    g.drawOval(5,5,36,36);
                 }
             } if(piece.getColor().equals(Team.s)) {
                 g.setColor(Color.WHITE);
-                g.drawOval(6,6,30,30);
+                g.drawOval(5,5,36,36);
             }
             }
     }

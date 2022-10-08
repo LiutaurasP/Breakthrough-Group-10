@@ -20,18 +20,20 @@ public class UI extends JFrame{
         this.lock = lock;
         board = new BoardUI(lock);
         setTitle("Menu.Breakthru");
-        setSize(700, 537);
+        setSize(770, 587);
         getContentPane().setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setResizable(false);
+        //setResizable(false);
         setVisible(true);
+
         getContentPane().add(board);
+        setBackground(Color.black);
         JPanel menu = new JPanel();
         whoseTurn = new JLabel("");
         whoseTurn.setFont(new Font("Monospaced",Font.BOLD,20));
         menu.add(whoseTurn);
-        menu.setBorder(BorderFactory.createEmptyBorder(20,500,500,0));
+        menu.setBorder(BorderFactory.createEmptyBorder(40,550,500,0));
         JButton undo = new JButton("Undo Last");
         // TODO: UNDO LAST MOVE
         undo.addActionListener(e -> {
@@ -43,12 +45,11 @@ public class UI extends JFrame{
             System.exit(0);
         });
         menu.add(quit);
-        menu.setBackground(Color.darkGray);
+        menu.setBackground(Color.GRAY);
         getContentPane().add(menu);
 
 
     }
-
     /**
      * Turn label getter.
      * @return Returns turn label.
