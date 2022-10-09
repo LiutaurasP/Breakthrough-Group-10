@@ -3,9 +3,8 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class GameRules {
-    static JLabel gameRules, backgroundImg;
-    static ImageIcon icon;
+public class GameRules extends SetUp{
+    static JLabel gameRules;
     static JScrollPane scrollPane;
     static JFrame frame;
     static JTextArea textArea;
@@ -59,6 +58,9 @@ public class GameRules {
 
         textArea = new JTextArea(510, 510);
 
+        scrollPane = new JScrollPane();
+        scrollPane.setViewportView(gameRules);
+
         frame = new JFrame("BREAKTHRU");
         ImageSetUp();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,20 +69,12 @@ public class GameRules {
         frame.setSize(513,513);
         frame.setIconImage(icon.getImage());
         frame.setLocationRelativeTo(null);
+        frame.add(scrollPane);
         frame.setVisible(true);
 
-        scrollPane = new JScrollPane(textArea);
-        scrollPane.setViewportView(gameRules);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        frame.add(scrollPane);
 
-    }
-
-    public static void ImageSetUp() {
-        backgroundImg = new JLabel(new ImageIcon("src/imgs/warship.png"));
-        backgroundImg.setBounds(0, 0, 513, 513);
-        icon = new ImageIcon("src/imgs/MU.jpg");
     }
 
     public static void Rules() {
