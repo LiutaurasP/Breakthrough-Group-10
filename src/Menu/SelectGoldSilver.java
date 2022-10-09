@@ -55,11 +55,11 @@ public class SelectGoldSilver{
             public void actionPerformed(ActionEvent e){
                 if (comboBox.getSelectedItem().equals("Choose manually")){
                     frame.dispose();
-                    SelectManually selectManually = new SelectManually();
+                    new SelectManually();
                 }
                 else{
                     frame.dispose();
-                    SelectRandom selectRandom = new SelectRandom();
+                    new SelectRandom();
                 }
             }
         });

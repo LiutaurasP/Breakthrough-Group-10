@@ -9,22 +9,34 @@ import Players.Player;
 
 import java.util.Arrays;
 
+/**
+ * Launcher class for the game. It instantiates: players, user interface, logical part of the game.
+ */
 public class Breakthru {
+    private final static Object lock = new Object();
+
+    /**
+     * Constructor for launching the game. It creates players, user interface, game logic instances. It also starts the game.
+     */
     public Breakthru(){
         PlayingBoard board = new PlayingBoard();
-        Player silver = new Human(Team.s);
-        Player gold = new Human(Team.g);
-        UI ui = new UI();
+        UI ui = new UI(lock);
+        Player gold = new Human(Team.g,lock,ui);
+        Player silver = new Human(Team.s,lock,ui);
         System.out.println(board);
         TheGame game = new TheGame(board, silver, gold, ui);
-        ui.getBoard().updateBoard(board);
-        System.out.println(game.getAllPossibleMoves(board.getPiece(0,5)));
-        game.movePiece(board.getBoard(), 0,5,0,1);
+
         ui.getBoard().updateBoard(board);
         System.out.println(board.toString());
+        game.play();
     }
-    public static void main(String[] args) {
 
+    /**
+     * Main class that you need to run the game.
+     * @param args main class args.
+     */
+    public static void main(String[] args) {
+        Breakthru breakthru = new Breakthru();
     }
 
 }

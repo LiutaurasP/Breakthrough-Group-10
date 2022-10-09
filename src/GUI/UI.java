@@ -2,40 +2,66 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
+/**
+ * A class that is the main frame of the UI. It contains board UI, menu (buttons,labels).
+ */
 public class UI extends JFrame{
-    BoardUI board = new BoardUI();
-    public UI() {
+    Object lock;
+    BoardUI board;
 
+    JLabel whoseTurn;
+
+    /**
+     * Constructor for main JFrame of GUI.
+     * @param lock Thread lock that is used to wait for user input.
+     */
+    public UI(Object lock) {
+        this.lock = lock;
+        board = new BoardUI(lock);
         setTitle("Menu.Breakthru");
-        setSize(700, 537);
+        setSize(770, 587);
         getContentPane().setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //setResizable(false);
         setVisible(true);
+
         getContentPane().add(board);
+        setBackground(Color.black);
         JPanel menu = new JPanel();
-        menu.setBorder(BorderFactory.createEmptyBorder(250,500,500,0));
-        menu.add(new JButton("Button1"));
-        menu.add(new JButton("Button2"));
-        menu.add(new JButton("Button3"));
-        menu.add(new JButton("Button4"));
-        menu.add(new JButton("Button5"));
-        menu.add(new JButton("Button6"));
-        menu.add(new JButton("Button7"));
-        menu.add(new JButton("Button8"));
+        whoseTurn = new JLabel("");
+        whoseTurn.setFont(new Font("Monospaced",Font.BOLD,20));
+        menu.add(whoseTurn);
+        menu.setBorder(BorderFactory.createEmptyBorder(40,550,500,0));
+        JButton undo = new JButton("Undo Last");
+        // TODO: UNDO LAST MOVE
+        undo.addActionListener(e -> {
 
-
-        menu.setBackground(Color.darkGray);
-        menu.setSize(100,100);
+        });
+        menu.add(undo);
+        JButton quit = new JButton("Quit");
+        quit.addActionListener(e -> {
+            System.exit(0);
+        });
+        menu.add(quit);
+        menu.setBackground(Color.GRAY);
         getContentPane().add(menu);
 
+
+    }
+    /**
+     * Turn label getter.
+     * @return Returns turn label.
+     */
+    public JLabel getWhoseTurn() {
+        return whoseTurn;
     }
 
+    /**
+     * UI board getter.
+     * @return Returns UI board.
+     */
     public BoardUI getBoard() {
         return board;
     }

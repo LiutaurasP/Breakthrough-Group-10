@@ -140,7 +140,7 @@ public class SelectRandom extends JFrame {
             continueBtn.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     frame.dispose();
-                    Breakthru breakthru = new Breakthru();
+                    new Breakthru();
                 }
             });
 
@@ -152,7 +152,7 @@ public class SelectRandom extends JFrame {
     }
 
     public static void main(String[] args) {
-        SelectRandom selectRandom = new SelectRandom();
+        new SelectRandom();
     }
 
 }
