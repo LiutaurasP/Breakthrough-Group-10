@@ -24,8 +24,8 @@ public class SelectManually extends JFrame{
         background.setLayout(new FlowLayout());
         frame.add(background);
 
-        String text = "\nSelect which player will play \nas gold / silver.\n"+
-                "If an invalid choice is made;\nPlayer 1: GOLD\nPlayer 2: SILVER.";
+        String text = "<br/>Select which player will play <br/>as gold / silver.<br/>"+
+                "If an invalid choice is made;<br/>Player 1: GOLD<br/>Player 2: SILVER.";
         JTextPane txt = new JTextPane();
         StyledDocument doc = txt.getStyledDocument();
         Style style = txt.addStyle("Color Style", null);

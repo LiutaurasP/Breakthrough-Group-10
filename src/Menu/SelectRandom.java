@@ -32,9 +32,9 @@ public class SelectRandom extends JFrame {
         background.setLayout(new FlowLayout());
         frame.add(background);
 
-        String text = "\nPlayer 1: \nchoose either heads or tails for a coinflip.\n\n"+
-                "If you guess the outcome right,\nyou will play as GOLD. \nOtherwise, you will play as SILVER\n"+
-                "and player 2 vice versa.\n";
+        String text = "<br/>Player 1: <br/>choose either heads or tails for a coinflip.<br/><br/>"+
+                "If you guess the outcome right,<br/>you will play as GOLD. <br/>Otherwise, you will play as SILVER<br/>"+
+                "and player 2 vice versa.<br/>";
 
         JTextPane txt = new JTextPane();
         StyledDocument doc = txt.getStyledDocument();

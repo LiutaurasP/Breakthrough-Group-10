@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PlayChoice extends SetUp{
-     JButton PvP, PvE, backBtn;
+     JButton PvP, PvE;
      JFrame frame;
-
    public PlayChoice() {
         PvP = new JButton("PvP");
         PvE = new JButton("PvE");
@@ -14,6 +13,8 @@ public class PlayChoice extends SetUp{
         ButtonSetUp(PvP);
         ButtonSetUp(PvE);
         ButtonSetUp(backBtn);
+        PvE.setBackground(new Color(93, 101, 112));
+        backBtn.addActionListener(e -> {frame.dispose(); menu = new MainMenu();});
 
         frame = new JFrame("BREAKTHRU");
         LayoutSetUp();
@@ -25,6 +26,7 @@ public class PlayChoice extends SetUp{
         layeredPane.add(buttonPanel);
         ImageSetUp();
         layeredPane.add(backgroundImg);
+        Tooltip();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -34,5 +36,11 @@ public class PlayChoice extends SetUp{
         frame.add(layeredPane);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+   }
+
+   public void Tooltip(){
+        JToolTip tTip = new JToolTip();
+        PvE.setToolTipText("This option is not available at the moment");
+        tTip.setComponent(PvE);
    }
 }

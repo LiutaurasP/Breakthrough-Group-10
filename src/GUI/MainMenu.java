@@ -5,20 +5,18 @@ import java.awt.*;
 
 
 public class MainMenu extends SetUp{
-    static JFrame frame;
-    static JButton playBtn, helpBtn;
-    static PlayChoice play;
-    public static void main(String[] args) {
-       MainMenu();
-    }
+    JFrame frame;
+    JButton playBtn, helpBtn;
+    PlayChoice play;
+    GameRules rules;
 
-    public static void MainMenu() {
+    public MainMenu() {
         playBtn = new JButton("PLAY");
         helpBtn = new JButton("HELP");
         ButtonSetUp(playBtn);
         ButtonSetUp(helpBtn);
         playBtn.addActionListener(e -> {frame.dispose(); play = new PlayChoice();});
-        helpBtn.addActionListener(e -> {});
+        helpBtn.addActionListener(e -> {frame.dispose(); rules = new GameRules();});
 
         frame = new JFrame("BREAKTHRU");
         LayoutSetUp();

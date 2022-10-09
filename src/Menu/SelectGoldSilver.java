@@ -24,8 +24,8 @@ public class SelectGoldSilver{
         background.setLayout(new FlowLayout());
         frame.add(background);
 
-        String text = "\nChoose manually to \nplay as GOLD / SILVER\n"+
-                "or\n determine randomly (coinflip)?\n";
+        String text = "<br/>Choose manually to <br/>play as GOLD / SILVER<br/>"+
+                "or<br/> determine randomly (coinflip)?<br/>";
         JTextPane txt = new JTextPane();
         StyledDocument doc = txt.getStyledDocument();
         Style style = txt.addStyle("Color Style", null);

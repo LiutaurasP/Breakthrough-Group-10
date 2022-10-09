@@ -42,14 +42,14 @@ public class PlayingBoard {
      */
     @Override
     public String toString() {
-        String stringBoard = "y/x 0 1 2 3 4 5 6 7 8 9 10 \n";
+        String stringBoard = "y/x 0 1 2 3 4 5 6 7 8 9 10 <br/>";
         for (int y = 0; y < SIZE_OF_BOARD; y++) {
             if (y != 10) stringBoard += y + "   ";
             else stringBoard += y + "  ";
             for (int x = 0; x < SIZE_OF_BOARD; x++) {
                 stringBoard += board[y][x].toString() + " ";
             }
-            stringBoard += "\n";
+            stringBoard += "<br/>";
         }
         return stringBoard;
     }
