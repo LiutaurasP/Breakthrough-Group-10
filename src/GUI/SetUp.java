@@ -5,14 +5,12 @@ import java.awt.*;
 
 public abstract class SetUp {
 
-    static JLabel backgroundImg, gameRules;
+    static JLabel backgroundImg, gameRules, description;
     static ImageIcon icon;
-    static JPanel buttonPanel;
+    static JPanel buttonPanel, textPanel, comboBoxPanel;
     static JLayeredPane layeredPane;
     static JButton backBtn;
     static MainMenu menu;
-
-
 
     public static void ImageSetUp() {
         backgroundImg = new JLabel(new ImageIcon("src/imgs/warship.png"));
@@ -43,10 +41,24 @@ public abstract class SetUp {
         buttonPanel.setSize(250, 200);
         buttonPanel.setOpaque(false);
 
+        textPanel = new JPanel();
+        textPanel.setLocation(50,50);
+        textPanel.setSize(413,220);
+
+        comboBoxPanel = new JPanel();
+        comboBoxPanel.setLocation(170,280 );
+        comboBoxPanel.setSize(150,80);
+        comboBoxPanel.setOpaque(false);
+
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, 513, 513);
     }
-
+    public static void TextSetUp(String text){
+        description = new JLabel(text);
+        Font fontR = new Font("Lucida Sans Typewriter", Font.PLAIN, 25);
+        description.setFont(fontR);
+        description.setOpaque(false);
+    }
     public static void Rules() {
         Font fontR = new Font("Lucida Sans Unicode", Font.PLAIN, 13);
 
