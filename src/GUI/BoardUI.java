@@ -20,7 +20,7 @@ public class BoardUI extends JPanel implements MouseListener {
      * Constructor for a UI board.
      * @param lock Thread lock that is used to wait for user input
      */
-    BoardUI(Object lock){
+    public BoardUI(Object lock){
 
         this.lock = lock;
         //this.setLocation();
@@ -56,7 +56,7 @@ public class BoardUI extends JPanel implements MouseListener {
     public void updateBoard(PlayingBoard board){
         for (int y = 0; y < 11; y++) {
             for (int x = 0; x < 11; x++) {
-                tiles[y][x].setSquare(board.getSquare(x,y));
+                    tiles[y][x].setSquare(board.getSquare(x,y));
             }
 
     }}
