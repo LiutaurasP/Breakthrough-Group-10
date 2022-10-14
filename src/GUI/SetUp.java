@@ -7,10 +7,11 @@ public abstract class SetUp {
 
     static JLabel backgroundImg, gameRules, description;
     static ImageIcon icon;
-    static JPanel buttonPanel, textPanel, comboBoxPanel;
+    static JPanel buttonPanel, choicePanel;
     static JLayeredPane layeredPane;
     static JButton backBtn;
     static MainMenu menu;
+    static GoldSilverChoice choiceMenu;
 
     public static void ImageSetUp() {
         backgroundImg = new JLabel(new ImageIcon("src/imgs/warship.png"));
@@ -41,14 +42,9 @@ public abstract class SetUp {
         buttonPanel.setSize(250, 200);
         buttonPanel.setOpaque(false);
 
-        textPanel = new JPanel();
-        textPanel.setLocation(50,50);
-        textPanel.setSize(413,220);
-
-        comboBoxPanel = new JPanel();
-        comboBoxPanel.setLocation(170,280 );
-        comboBoxPanel.setSize(150,80);
-        comboBoxPanel.setOpaque(false);
+        choicePanel = new JPanel();
+        choicePanel.setLocation(50,50);
+        choicePanel.setSize(413,283);
 
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, 513, 513);

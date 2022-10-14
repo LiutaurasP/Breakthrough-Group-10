@@ -14,7 +14,7 @@ public class PlayChoice extends SetUp{
         ButtonSetUp(PvE);
         ButtonSetUp(backBtn);
         PvE.setBackground(new Color(93, 101, 112));
-        PvP.addActionListener(e -> {frame.dispose(); new GoldSilverChoice();});
+        PvP.addActionListener(e -> {frame.dispose(); choiceMenu = new GoldSilverChoice();});
         backBtn.addActionListener(e -> {frame.dispose(); menu = new MainMenu();});
 
         frame = new JFrame("BREAKTHRU");

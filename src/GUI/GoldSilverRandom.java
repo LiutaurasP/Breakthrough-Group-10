@@ -22,30 +22,26 @@ public class GoldSilverRandom extends SetUp{
     final int GIF_HEIGHT = 650;
 
     public GoldSilverRandom() {
-        frame = new JFrame("Random Selection - Coinflip");
+        frame = GoldSilverChoice.choiceMenu.frame;
         layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0,0,GIF_WIDTH,GIF_HEIGHT+100);
+        layeredPane.setBounds(0,0,513,513);
         LayoutSetUp();
+        choicePanel.setSize(413, 380);
 
-        TextSetUp("<html>Player 1: choose <b>heads</b> or <br/><b>tails</b> for a coinflip.<br/>"+
-                "If outcome is guessed right: <br/><br/><b>Player 1</b>: <em>GOLD</em><br/> " +
+        TextSetUp("<html>Player 1: choose <b>heads</b> or <br/><b>tails</b> for a coinflip."+
+                " If <br/>outcome is guessed right: <br/><br/><b>Player 1</b>: <em>GOLD</em><br/> " +
                 "<b>Player 2</b>: <em>SILVER</em><br/>"+
                 "<br/>Vice versa if <br/>guessed incorrectly<br/><html/>");
-        textPanel.setSize(440, 300);
-        textPanel.setLocation(30,50);
-        textPanel.add(description);
+        choicePanel.add(description);
+        choicePanel.add(Box.createRigidArea(new Dimension(413, 20)));
 
         String[] headOrTail = {"Heads", "Tails"};
         headsTailsBox = new JComboBox<>(headOrTail);
-        comboBoxPanel.add(headsTailsBox);
-        comboBoxPanel.setLocation(170, 370);
-        comboBoxPanel.setSize(170, 30);
+        choicePanel.add(headsTailsBox);
 
         // button to start actual coin flip
         startButton = new JButton("Start coin flip");
         ButtonSetUp(startButton);
-        buttonPanel.setLocation(100, 420);
-        buttonPanel.setSize(300,200);
         startButton.setMinimumSize(new Dimension(300, 40));
         startButton.setMaximumSize(new Dimension(300, 40));
         startButton.addActionListener(e -> {
@@ -56,11 +52,9 @@ public class GoldSilverRandom extends SetUp{
             frame.dispose();
             new Coinflip();
         });
-        buttonPanel.add(startButton);
+        choicePanel.add(startButton);
 
-        layeredPane.add(textPanel);
-        layeredPane.add(comboBoxPanel);
-        layeredPane.add(buttonPanel);
+        layeredPane.add(choicePanel);
 
         ImageSetUp();
         layeredPane.add(backgroundImg);
@@ -78,7 +72,6 @@ public class GoldSilverRandom extends SetUp{
     public class Coinflip {
         public Coinflip() {
             JFrame newFrame = new JFrame();
-
             newFrame.setSize(GIF_WIDTH, GIF_HEIGHT);
 
             JLabel background = new JLabel(bg);
@@ -151,9 +144,4 @@ public class GoldSilverRandom extends SetUp{
             newFrame.setVisible(true);
         }
     }
-
-    public static void main(String[] args) {
-        //new SelectRandom();
-    }
-
 }
