@@ -2,7 +2,6 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-
 import static javax.swing.BorderFactory.createEmptyBorder;
 
 public class GameRules extends SetUp{
@@ -41,11 +40,10 @@ public class GameRules extends SetUp{
         frame.add(buttonPanel);
         frame.setVisible(true);
 
-//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
-        keyScroll = scrollPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        keyScroll = scrollPane.getInputMap(JComponent.WHEN_FOCUSED);
         keyScroll.put(KeyStroke.getKeyStroke("DOWN"), "positiveUnitIncrement");
         keyScroll.put(KeyStroke.getKeyStroke("UP"), "negativeUnitIncrement");
     }
