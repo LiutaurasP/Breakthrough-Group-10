@@ -3,7 +3,7 @@
 *** 
 ### Description
 
-The aim of this project was to create a strategy game, together with an implementation of a human-human player version (and a human-computer player version, *not yet implemented at this moment*).
+The aim of this project was to create a strategy game, that includes an implementation of a human-human player version (and a human-computer player version, *not yet implemented at this moment*).
 Our choice of game is **BreakThru**, a member of the Hnefatafl boardgame family. 
 
 ### User Instructions
