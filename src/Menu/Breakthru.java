@@ -12,13 +12,27 @@ import java.util.Arrays;
 /**
  * Launcher class for the game. It instantiates: players, user interface, logical part of the game.
  */
-public class Breakthru {
+public class Breakthru implements Runnable {
     private final static Object lock = new Object();
 
     /**
      * Constructor for launching the game. It creates players, user interface, game logic instances. It also starts the game.
      */
     public Breakthru(){
+        Thread t1 =new Thread(this);
+        t1.start();
+    }
+
+    /**
+     * Main class that you need to run the game.
+     * @param args main class args.
+     */
+    public static void main(String[] args) {
+        Breakthru breakthru = new Breakthru();
+    }
+
+    @Override
+    public void run() {
         PlayingBoard board = new PlayingBoard();
         UI ui = new UI(lock);
         Player gold = new Human(Team.g,lock,ui);
@@ -30,13 +44,4 @@ public class Breakthru {
         System.out.println(board.toString());
         game.play();
     }
-
-    /**
-     * Main class that you need to run the game.
-     * @param args main class args.
-     */
-    public static void main(String[] args) {
-        Breakthru breakthru = new Breakthru();
-    }
-
 }
