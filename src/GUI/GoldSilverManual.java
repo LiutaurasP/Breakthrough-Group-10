@@ -1,5 +1,6 @@
 package GUI;
 
+import GameLogic.Team;
 import Menu.Breakthru;
 
 import javax.swing.*;
@@ -34,7 +35,14 @@ public class GoldSilverManual extends SetUp{
         confirmBtn.setMinimumSize(new Dimension(150, 40));
         confirmBtn.setMaximumSize(new Dimension(150, 40));
         confirmBtn.addActionListener(e -> {
-            frame.dispose(); new Breakthru();
+            frame.dispose();
+                if(p1GoldSilverBox.getSelectedItem().toString()=="Silver"){
+                    System.out.println("reached");
+                    new Breakthru(Team.s,Team.g);
+                }
+                else {
+                    new Breakthru(Team.g, Team.s);
+                }
         });
         choicePanel.add(confirmBtn);
 

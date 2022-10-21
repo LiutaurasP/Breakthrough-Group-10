@@ -1,9 +1,11 @@
 package GUI;
+import GameLogic.Team;
 import Menu.Breakthru;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GoldSilverRandom extends SetUp{
     JFrame frame;
@@ -110,27 +112,37 @@ public class GoldSilverRandom extends SetUp{
             timerPoof.setRepeats(false);
             timerPoof.start();
 
+            AtomicReference<Team> player1 = new AtomicReference<>(Team.s);
             // after 'poof'-gif is displayed, replaced with 'floating coin'-gif
             Timer timerFloating = new Timer(4320, event -> {
                 if (rnd) {
                     imgLabel.setIcon(HFloat);
                     headerLabel.setText("Heads!");
-                    if (playersGuess.equals("Heads"))
+                    if (playersGuess.equals("Heads")){
                         statusLabel.setText("Player 1 plays as GOLD. Player 2 plays as SILVER.");
-                    else
+                        player1.set(Team.g);}
+                    else{
                         statusLabel.setText("Player 1 plays as SILVER. Player 2 plays as GOLD.");
+                        player1.set(Team.s);}
                 } else {
                     imgLabel.setIcon(TFloat);
                     headerLabel.setText("Tails!");
-                    if (playersGuess.equals("Tails"))
+                    if (playersGuess.equals("Tails")){
                         statusLabel.setText("Player 1 plays as GOLD. Player 2 plays as SILVER.");
+                        player1.set(Team.g);}
                     else
                         statusLabel.setText("Player 1 plays as SILVER. Player 2 plays as GOLD.");
+                        player1.set(Team.s);
                 }
                 ready.setText("Ready to play?");
                 JButton continueBtn = new JButton("press to continue...");
                 background.add(continueBtn);
-                continueBtn.addActionListener(e -> { newFrame.dispose(); new Breakthru(); });
+                continueBtn.addActionListener(e -> { newFrame.dispose();
+                    if(player1.equals(Team.g)){new Breakthru(Team.g,Team.s); }
+                    else {
+                        new Breakthru(Team.s,Team.g);
+                    }
+                });
             });
             timerFloating.setRepeats(false);
             timerFloating.start();
