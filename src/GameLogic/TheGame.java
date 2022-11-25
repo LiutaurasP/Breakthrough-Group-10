@@ -115,6 +115,7 @@ public class TheGame {
         if (silverWon) {
             ui.getWhoseTurn().setForeground(Color.WHITE);
             ui.getWhoseTurn().setText("Silver Won!");
+            ui.getAgain().setVisible(true);
         }
         else {
             ui.getWhoseTurn().setForeground(Color.YELLOW);
