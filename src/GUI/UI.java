@@ -1,5 +1,8 @@
 package GUI;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,10 +22,13 @@ public class UI extends JFrame{
     public UI(Object lock) {
         this.lock = lock;
         board = new BoardUI(lock);
-        setTitle("Menu.Breakthru");
+        setTitle("Play Breakthru");
         setSize(770, 587);
+        setLocationRelativeTo(null);
         getContentPane().setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        JMenuItem hello = new JMenuItem("Hello");
 
         //setResizable(false);
         setVisible(true);
@@ -50,6 +56,7 @@ public class UI extends JFrame{
 
 
     }
+
     /**
      * Turn label getter.
      * @return Returns turn label.

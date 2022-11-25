@@ -11,6 +11,7 @@ public class MainMenu extends SetUp{
     GameRules rules;
 
     public MainMenu() {
+
         playBtn = new JButton("PLAY");
         helpBtn = new JButton("HELP");
         ButtonSetUp(playBtn);
