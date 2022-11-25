@@ -1,11 +1,7 @@
 package GUI;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-
 import javax.swing.*;
 import java.awt.*;
-
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 /**
@@ -32,8 +28,6 @@ public class UI extends SetUp{
         frame.setBackground(Color.BLACK);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        JMenuItem hello = new JMenuItem("Hello");
-
         //setResizable(false);
         frame.setVisible(true);
 
@@ -44,6 +38,8 @@ public class UI extends SetUp{
         whoseTurn.setFont(new Font("Monospaced",Font.BOLD,20));
         menu.add(whoseTurn);
         menu.setBorder(BorderFactory.createEmptyBorder(40,550,500,0));
+
+        //undo button
         JButton undo = new JButton("Undo Last");
         // TODO: UNDO LAST MOVE
             undo.addActionListener(e -> {
@@ -51,12 +47,14 @@ public class UI extends SetUp{
             });
         menu.add(undo);
 
+        //Quit button
         JButton quit = new JButton("Quit");
             quit.addActionListener(e -> {
                 System.exit(0);
             });
         menu.add(quit);
 
+        //play again button
         again = new JButton("Play Again?");
             again.addActionListener(e -> {
                 frame.dispose();
@@ -67,12 +65,11 @@ public class UI extends SetUp{
 
         menu.setBackground(Color.GRAY);
         frame.add(menu);
-
-
+        frame.setIconImage(icon.getImage());
     }
 
     /**
-     * Play again getter.
+     * Play again button getter.
      * @return
      */
     public JButton getAgain() {
