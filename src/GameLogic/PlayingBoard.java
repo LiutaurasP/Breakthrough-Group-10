@@ -101,4 +101,24 @@ public class PlayingBoard {
 
     }
 
+    public int[][] boardToArray() {
+        int[][] arrayBoard = new int[11][11];
+
+        for(int i = 0; i < 11; i++) {
+            for(int j = 0; j < 11; j++) {
+                if(board[i][j].getCurrentPiece().getColor().equals(Team.s)){
+                    arrayBoard[i][j] = 1;
+                } else if(board[i][j].getCurrentPiece().getColor().equals(Team.g)) {
+                    if(board[i][j].getCurrentPiece() instanceof Flag) {
+                        arrayBoard[i][j] = 3;
+                    } else {
+                        arrayBoard[i][j] = 2;
+                    }
+                }
+            }
+        }
+
+        return arrayBoard;
+    }
+
 }
