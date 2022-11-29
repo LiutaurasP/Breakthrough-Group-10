@@ -13,33 +13,36 @@ public class GoldSilverChoice extends SetUp {
 
     public GoldSilverChoice() {
         frame = new JFrame("BREAKTHRU - Gold or Silver?");
-        layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0,0,513,513);
         LayoutSetUp();
 
-        TextSetUp("<html><br/>Choose <b>manually</b> to play <br/>as <em>GOLD / SILVER</em><br/>"+
-                "or determine <br/><b>randomly</b> (coinflip)?<br/><html/>");
-        choicePanel.add(description);
-        choicePanel.add(Box.createRigidArea(new Dimension(413, 30)));
+        TextSetUp("<html><br/><br/> CHOOSE <b>MANUALLY</b> OR <br/><b>RANDOMLY</b> (coinflip)"+
+                " TO <br/> PLAY AS <em>GOLD / SILVER</em> ?<br/><html/>");
 
         String[] manualOrRandom = {"Choose manually", "Choose randomly"};
         manualRandomBox = new JComboBox<>(manualOrRandom);
-        choicePanel.add(manualRandomBox);
 
         // open new frame according to choice (manual or random) of user
-        confirmBtn = new JButton("Confirm");
+        confirmBtn = new JButton("CONFIRM");
         ButtonSetUp(confirmBtn);
-        confirmBtn.setMinimumSize(new Dimension(150, 40));
-        confirmBtn.setMaximumSize(new Dimension(150, 40));
+        AdjustButtonSize(confirmBtn, 140);
         confirmBtn.addActionListener(e -> {
             if (Objects.equals(manualRandomBox.getSelectedItem(), "Choose manually")){
                    frame.getContentPane().removeAll(); manual = new GoldSilverManual(); }
             else { frame.getContentPane().removeAll(); random = new GoldSilverRandom(); }
         });
-        choicePanel.add(confirmBtn);
 
-        layeredPane.add(choicePanel);
+        backBtn = new JButton("BACK");
+        ButtonSetUp(backBtn);
+        backBtn.addActionListener(e -> {frame.dispose(); playChoice = new PlayChoice();});
 
+        textPanel.add(description);
+        optionsPanel.add(manualRandomBox);
+        optionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        optionsPanel.add(confirmBtn);
+        optionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        optionsPanel.add(backBtn);
+        layeredPane.add(textPanel);
+        layeredPane.add(optionsPanel);
         ImageSetUp();
         layeredPane.add(backgroundImg);
 
