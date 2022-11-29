@@ -26,7 +26,7 @@ public class Move {
     /**
      * Constructor for when an empty move class might be needed.
      */
-    Move(){
+    public Move(){
     }
 
     /**
