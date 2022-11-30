@@ -1,5 +1,7 @@
 package Bots;
 
+import GUI.BoardUI;
+import GUI.UI;
 import GameLogic.*;
 import Pieces.*;
 import Players.*;
@@ -15,19 +17,25 @@ import java.util.Random;
  * 5.
  **/
 public class RandomBot extends Player {
-    PlayingBoard board;
+    private final Object lock;
+    UI ui;
+    BoardUI board;
+
     public Random randMove, randPiece; // random variables to
-    public int upperMove, upperPlayer, intMove, intPlayer, movesLeft;
+    public int upperMove, upperPiece, intMove;
     private ArrayList<AbstractPiece> availablePieces;
+    int oldX, oldY, newX, newY;
 
     /**
      * Typical player constructor.
      *
      * @param team Which team does the player play for.
      */
-    public RandomBot(Team team) {
+    public RandomBot(Team team, Object lock, UI ui) {
         super(team);
-        board = new PlayingBoard();
+        this.ui= ui;
+        this.lock = lock;
+        board = ui.getBoard();
         randMove = new Random();
         randPiece = new Random();
 //        randPlayer = new Random();
@@ -35,25 +43,50 @@ public class RandomBot extends Player {
 //        intPlayer = randPlayer.nextInt(upperPlayer);
         if(this.getTeam().equals(Team.s)) {
             availablePieces = new ArrayList<>(20);
-            upperPlayer = 20;
+            upperPiece = 20;
         } else {
             availablePieces = new ArrayList<>(13);
-            upperPlayer = 13;
+            upperPiece = 13;
         }
     }
 
+    /**
+     * Check whether it is a normal player(silver or gold) or the flag
+     * IF
+     * flag - gold team has 1 move
+     */
+        /**
+         * 1. get size of arrayList of possible moves
+         *    getAllPossibleMoves(currentPiece, true)
+         *    piece.toString().equals("f")
+         * 2. assign upperMove = size
+         * 3. assign intMove = randMove.nextInt(upperMove)
+         * 4. make the intMove^th move
+         */
+    /**
+     * ELSE
+     * other pieces - corresponding team has either 1 or 2 moves
+     */
+        /**
+         * 1. get size of arrayList of possible moves
+         * 2. assign upperMove = size
+         * 3. assign intMove = randTile.nextInt(upperMove)
+         * 4. make the intMove^th move
+         *      IF (capture move)
+         *          team has only 1 move in total -> 0 moves left
+         *          getAllPossibleMoves(currentPiece, false)
+         *      ELSE
+         *          team has 2 moves in total -> 1 move left
+         *          select a random piece again(from the same team - handled in updatePieces())
+         *          getAllPossibleMoves(currentPiece, true)
+         */
+
+    /**
+     * Method for moving a piece randomly.
+     * @return a Move object contiaining the old and new coordinates of a piece.
+     */
     @Override
     public Move getMove() {
-
-        return null;
-    }
-
-    private Move randomMove() {
-        int oldX = 0;
-        int oldY = 0;
-        int newX = 0;
-        int newY = 0;
-
         updatePieces();
 
         // generate a random piece out of the available pieces to move
@@ -61,56 +94,15 @@ public class RandomBot extends Player {
         oldX = currentPiece.x;
         oldY = currentPiece.y;
 
-        /**
-         * Check whether it is a normal player(silver or gold) or the flag
-         * IF
-         * flag - gold team has 1 move
-         */
-            /**
-             * 1. get size of arrayList of possible moves
-             *    getAllPossibleMoves(currentPiece, true)
-             *    piece.toString().equals("f")
-             * 2. assign upperMove = size
-             * 3. assign intMove = randMove.nextInt(upperMove)
-             * 4. make the intMove^th move
-             */
-        /**
-         * ELSE
-         * other pieces - corresponding team has either 1 or 2 moves
-         */
-            /**
-             * 1. get size of arrayList of possible moves
-             * 2. assign upperMove = size
-             * 3. assign intMove = randTile.nextInt(upperMove)
-             * 4. make the intMove^th move
-             *      IF (capture move)
-             *          team has only 1 move in total -> 0 moves left
-             *          getAllPossibleMoves(currentPiece, false)
-             *      ELSE
-             *          team has 2 moves in total -> 1 move left
-             *          select a random piece again(from the same team - handled in updatePieces())
-             *          getAllPossibleMoves(currentPiece, true)
-             */
-
         ArrayList<Square> possibleMoves = getAllPossibleMoves(currentPiece, true);
-        upperMove = possibleMoves.size();
+        upperMove = possibleMoves.size(); System.out.println("possible moves: " + possibleMoves.size());
         intMove = randMove.nextInt(upperMove);
 
         newX = possibleMoves.get(intMove).getX();
         newY = possibleMoves.get(intMove).getY();
-        currentPiece.setX(newX);
-        currentPiece.setY(newY); // should we do this?
-
-        if(currentPiece instanceof RegularPiece) {
-            if((oldX == newX + 1 && (oldY == newY + 1 || oldY == newY - 1)) ||
-                    (oldX == newX - 1 && (oldY == newY + 1 || oldY == newY - 1))) {
-                possibleMoves = getAllPossibleMoves(currentPiece, false);
-            } else {
-                updatePieces();
-                currentPiece = availablePieces.get(randPiece.nextInt(availablePieces.size()));
-                possibleMoves = getAllPossibleMoves(currentPiece, true);
-            }
-        }
+        System.out.println("x: " + newX + " y: " + newY);
+//        currentPiece.setX(newX);
+//        currentPiece.setY(newY); // should we do this?
 
         return new Move(oldX, oldY, newX, newY);
     }
@@ -119,10 +111,12 @@ public class RandomBot extends Player {
      * Method that updates the array of available pieces we can move.
      */
     private void updatePieces() {
+        board = ui.getBoard();
+
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
-                if (this.getTeam().equals(board.getSquare(i, j).getCurrentPiece().getColor())) {
-                    availablePieces.add(board.getSquare(i, j).getCurrentPiece());
+                if (board.getTile(i, j).getSquare().getCurrentPiece() != null && this.getTeam().equals(board.getTile(i, j).getSquare().getCurrentPiece().getColor())) {
+                    availablePieces.add(board.getTile(i, j).getSquare().getCurrentPiece());
                 }
             }
         }
@@ -147,11 +141,16 @@ public class RandomBot extends Player {
         int y = piece.y;
         Team teamOfPiece = piece.color;
 
-        Square[][] theBoard = board.getBoard();
+        Square[][] theBoard = new Square[11][11];
 
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
+                theBoard[i][j] = board.getTile(i, j).getSquare();
+            }
+        }
 
         // Right
-        for (int i = x; i < board.SIZE_OF_BOARD - 1; i++) {
+        for (int i = x; i < 10; i++) {
             if (theBoard[y][i + 1].toString().equals("-")) allPossibleMoves.add(theBoard[y][i + 1]);
             else break;
         }
@@ -161,7 +160,7 @@ public class RandomBot extends Player {
             else break;
         }
         // Down
-        for (int i = y; i < board.SIZE_OF_BOARD - 1; i++) {
+        for (int i = y; i < 10; i++) {
             if (theBoard[i + 1][x].toString().equals("-")) allPossibleMoves.add(theBoard[i + 1][x]);
             else break;
         }
