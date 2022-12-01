@@ -18,6 +18,7 @@ public class GoldSilverManual extends SetUp{
 
         TextSetUp("<html><br/><br/>WHICH PLAYER PLAYS <br/>AS <em>GOLD / SILVER</em>?<br/><html/>");
 
+        //player combo boxes
         String[] p1GoldOrSilver = {"Gold", "Silver"};
         p1GoldSilverBox = new JComboBox<>(p1GoldOrSilver);
         p1GoldSilverBox.setBorder(BorderFactory.createTitledBorder("Player 1"));
@@ -25,6 +26,25 @@ public class GoldSilverManual extends SetUp{
         String[] p2GoldOrSilver = {"Gold", "Silver"};
         p2GoldSilverBox = new JComboBox<>(p2GoldOrSilver);
         p2GoldSilverBox.setBorder(BorderFactory.createTitledBorder("Player 2"));
+        p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[1]);
+
+        //action listeners for setting the opposite team for the other player automagically
+        p1GoldSilverBox.addActionListener(e -> {
+            if(p1GoldSilverBox.getSelectedItem() == p1GoldOrSilver[1]){
+                p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[0]);
+            } else {
+                p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[1]);
+            }
+        });
+
+        p2GoldSilverBox.addActionListener(e -> {
+            if(p2GoldSilverBox.getSelectedItem() == p1GoldOrSilver[1]){
+                p1GoldSilverBox.setSelectedItem(p1GoldOrSilver[0]);
+            } else {
+                p1GoldSilverBox.setSelectedItem(p1GoldOrSilver[1]);
+            }
+        });
+
 
         confirmBtn = new JButton("CONFIRM");
         ButtonSetUp(confirmBtn);
