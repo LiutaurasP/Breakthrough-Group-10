@@ -63,7 +63,7 @@ public class UI extends SetUp{
         again.setVisible(false);
         menu.add(again);
 
-        menu.setBackground(Color.GRAY);
+        menu.setBackground(Color.DARK_GRAY);
         frame.add(menu);
         frame.setIconImage(icon.getImage());
     }

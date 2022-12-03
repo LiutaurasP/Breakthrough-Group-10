@@ -10,7 +10,7 @@ import java.util.Objects;
 public class GoldSilverManual extends SetUp{
     JFrame frame;
     JButton confirmBtn;
-    JComboBox<String> p1GoldSilverBox, p2GoldSilverBox;
+    JComboBox<String> teamChoiceBox, p2GoldSilverBox;
 
     public GoldSilverManual(){
         frame = GoldSilverChoice.choiceMenu.frame;
@@ -20,8 +20,8 @@ public class GoldSilverManual extends SetUp{
 
         //player combo boxes
         String[] p1GoldOrSilver = {"Gold", "Silver"};
-        p1GoldSilverBox = new JComboBox<>(p1GoldOrSilver);
-        p1GoldSilverBox.setBorder(BorderFactory.createTitledBorder("Player 1"));
+        teamChoiceBox = new JComboBox<>(p1GoldOrSilver);
+        teamChoiceBox.setBorder(BorderFactory.createTitledBorder("Player 1"));
 
         String[] p2GoldOrSilver = {"Gold", "Silver"};
         p2GoldSilverBox = new JComboBox<>(p2GoldOrSilver);
@@ -29,8 +29,8 @@ public class GoldSilverManual extends SetUp{
         p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[1]);
 
         //action listeners for setting the opposite team for the other player automagically
-        p1GoldSilverBox.addActionListener(e -> {
-            if(p1GoldSilverBox.getSelectedItem() == p1GoldOrSilver[1]){
+        teamChoiceBox.addActionListener(e -> {
+            if(teamChoiceBox.getSelectedItem() == p1GoldOrSilver[1]){
                 p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[0]);
             } else {
                 p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[1]);
@@ -39,9 +39,9 @@ public class GoldSilverManual extends SetUp{
 
         p2GoldSilverBox.addActionListener(e -> {
             if(p2GoldSilverBox.getSelectedItem() == p1GoldOrSilver[1]){
-                p1GoldSilverBox.setSelectedItem(p1GoldOrSilver[0]);
+                teamChoiceBox.setSelectedItem(p1GoldOrSilver[0]);
             } else {
-                p1GoldSilverBox.setSelectedItem(p1GoldOrSilver[1]);
+                teamChoiceBox.setSelectedItem(p1GoldOrSilver[1]);
             }
         });
 
@@ -51,7 +51,7 @@ public class GoldSilverManual extends SetUp{
         AdjustButtonSize(confirmBtn, 140);
         confirmBtn.addActionListener(e -> {
             frame.dispose();
-                if(Objects.equals(p1GoldSilverBox.getSelectedItem(), "Silver")){
+                if(Objects.equals(teamChoiceBox.getSelectedItem(), "Silver")){
                     System.out.println("reached");
                     new Breakthru(Team.s,Team.g);
                 }
@@ -65,7 +65,7 @@ public class GoldSilverManual extends SetUp{
         backBtn.addActionListener(e -> {frame.dispose(); choiceMenu = new GoldSilverChoice();});
 
         textPanel.add(description);
-        optionsPanel.add(p1GoldSilverBox);
+        optionsPanel.add(teamChoiceBox);
         optionsPanel.add(p2GoldSilverBox);
         optionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         optionsPanel.add(confirmBtn);

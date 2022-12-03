@@ -1,6 +1,7 @@
 package GUI;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
+//download the library from https://search.maven.org/artifact/com.formdev/flatlaf/2.6/jar
+//Downloads > jar > add library to your ide to fix broken import
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
