@@ -30,11 +30,11 @@ public class GoldSilverRandom extends SetUp{
 
         String[] headOrTail = {"Heads", "Tails"};
         headsTailsBox = new JComboBox<>(headOrTail);
+        headsTailsBox.setMaximumSize(new Dimension(200,50));
 
         // button to start actual coin flip
-        startButton = new JButton("FLIP COIN");
+        startButton = new JButton("FLIP");
         ButtonSetUp(startButton);
-        AdjustButtonSize(startButton, 200);
         startButton.addActionListener(e -> {
             if (Objects.equals(headsTailsBox.getSelectedItem(), "Heads"))
                 playersGuess = "Heads";
@@ -49,8 +49,9 @@ public class GoldSilverRandom extends SetUp{
         backBtn.addActionListener(e -> {frame.dispose(); choiceMenu = new GoldSilverChoice();});
 
         textPanel.add(description);
+        optionsPanel.add(Box.createRigidArea(new Dimension(0, 35)));
         optionsPanel.add(headsTailsBox);
-        optionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        optionsPanel.add(Box.createRigidArea(new Dimension(0, 45)));
         optionsPanel.add(startButton);
         optionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         optionsPanel.add(backBtn);
