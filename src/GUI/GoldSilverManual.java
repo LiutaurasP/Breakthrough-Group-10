@@ -16,7 +16,7 @@ public class GoldSilverManual extends SetUp{
         frame = GoldSilverChoice.choiceMenu.frame;
         LayoutSetUp();
 
-        TextSetUp("<html><br/><br/>WHICH PLAYER PLAYS <br/>AS <em>GOLD / SILVER</em>?<br/><html/>");
+        TextSetUp("<html><br/>Which player plays <br/>as <em>GOLD / SILVER</em>?<br/><html/>");
 
         //player combo boxes
         String[] p1GoldOrSilver = {"Gold", "Silver"};
@@ -46,9 +46,9 @@ public class GoldSilverManual extends SetUp{
         });
 
 
-        confirmBtn = new JButton("CONFIRM");
+        confirmBtn = new JButton("PLAY");
         ButtonSetUp(confirmBtn);
-        AdjustButtonSize(confirmBtn, 140);
+//        AdjustButtonSize(confirmBtn, 140);
         confirmBtn.addActionListener(e -> {
             frame.dispose();
                 if(Objects.equals(teamChoiceBox.getSelectedItem(), "Silver")){
@@ -74,6 +74,7 @@ public class GoldSilverManual extends SetUp{
         layeredPane.add(textPanel);
         layeredPane.add(optionsPanel);
         ImageSetUp();
+        IconSetUp();
         layeredPane.add(backgroundImg);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

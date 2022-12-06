@@ -15,17 +15,17 @@ public class GoldSilverChoice extends SetUp {
         frame = new JFrame("BREAKTHRU - Gold or Silver?");
         LayoutSetUp();
 
-        TextSetUp("<html><br/><br/>CHOOSE <b>MANUALLY</b> OR <br/><b>RANDOMLY</b> (coinflip)"+
-                " TO <br/> PLAY AS <em>GOLD / SILVER</em> ?<br/><html/>");
+        TextSetUp("<html><br/>Choose <b>manually</b> or <br/><b>randomly</b> (coinflip)"+
+                " to <br/> play as <em>GOLD / SILVER</em> ?<br/><html/>");
 
         String[] manualOrRandom = {"Choose manually", "Choose randomly"};
         manualRandomBox = new JComboBox<>(manualOrRandom);
         manualRandomBox.setMaximumSize(new Dimension(200,50));
 
         // open new frame according to choice (manual or random) of user
-        confirmBtn = new JButton("CONFIRM");
+        confirmBtn = new JButton("NEXT");
         ButtonSetUp(confirmBtn);
-        AdjustButtonSize(confirmBtn, 140);
+//        AdjustButtonSize(confirmBtn, 140);
         confirmBtn.addActionListener(e -> {
             if (Objects.equals(manualRandomBox.getSelectedItem(), "Choose manually")){
                    frame.getContentPane().removeAll(); manual = new GoldSilverManual(); }
@@ -46,6 +46,7 @@ public class GoldSilverChoice extends SetUp {
         layeredPane.add(textPanel);
         layeredPane.add(optionsPanel);
         ImageSetUp();
+        IconSetUp();
         layeredPane.add(backgroundImg);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

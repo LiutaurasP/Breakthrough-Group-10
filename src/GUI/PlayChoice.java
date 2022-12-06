@@ -26,6 +26,7 @@ public class PlayChoice extends SetUp{
         buttonPanel.add(backBtn);
         layeredPane.add(buttonPanel);
         ImageSetUp();
+        IconSetUp();
         layeredPane.add(backgroundImg);
         Tooltip();
 

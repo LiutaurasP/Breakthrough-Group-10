@@ -53,10 +53,10 @@ public class TheGame {
                 // Changing the label depending on whose turn it is.
                 if (player.getTeam() == Team.g) {
                     ui.getWhoseTurn().setForeground(Color.YELLOW);
-                    ui.getWhoseTurn().setText("Gold's turn!");
+                    ui.getWhoseTurn().setText("<html>Gold's turn!<br/><br/><html/>");
                 } else {
                     ui.getWhoseTurn().setForeground(Color.WHITE);
-                    ui.getWhoseTurn().setText("Silver's turn!");
+                    ui.getWhoseTurn().setText("<html>Silver's turn!<br/><br/><html/>");
                 }
 
                 Move move;

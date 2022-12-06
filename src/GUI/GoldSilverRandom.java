@@ -25,8 +25,8 @@ public class GoldSilverRandom extends SetUp{
         frame = GoldSilverChoice.choiceMenu.frame;
         LayoutSetUp();
 
-        TextSetUp("<html><b>HEADS</b> OR <b>TAILS</b>? <br/>If outcome = guess: <br/><b>Player 1</b>: <em>GOLD</em><br/> " +
-                "<b>Player 2</b>: <em>SILVER</em><br/>Contrarily if <br/>outcome ≠ guess<br/><html/>");
+        TextSetUp("<html><b>HEADS</b> OR <b>TAILS</b>? <br/>If outcome = guess: <br/><b>Player 1</b>: <em>GOLD</em><br/>" +
+                "<b>Player 2</b>: <em>SILVER</em><br/>Contrarily if outcome ≠ guess<br/><html/>");
 
         String[] headOrTail = {"Heads", "Tails"};
         headsTailsBox = new JComboBox<>(headOrTail);
@@ -58,6 +58,7 @@ public class GoldSilverRandom extends SetUp{
         layeredPane.add(textPanel);
         layeredPane.add(optionsPanel);
         ImageSetUp();
+        IconSetUp();
         layeredPane.add(backgroundImg);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,6 +150,7 @@ public class GoldSilverRandom extends SetUp{
         optionsPanel.setBackground(new Color(0, 0, 0, 100));
         layeredPane.add(optionsPanel);
         ImageSetUp();
+        IconSetUp();
         layeredPane.add(backgroundImg);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

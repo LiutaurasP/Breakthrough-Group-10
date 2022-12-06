@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.text.Position;
 import java.awt.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -22,25 +23,27 @@ public class UI extends SetUp{
         this.lock = lock;
         frame = new JFrame();
         board = new BoardUI(lock);
-        frame.setTitle("Play Breakthru");
+        frame.setTitle("BREAKTHRU");
+        IconSetUp();
         frame.setSize(770, 587);
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.BLACK);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //setResizable(false);
-        frame.setVisible(true);
-
-        frame.add(board);
-        frame.setBackground(Color.black);
         JPanel menu = new JPanel();
         whoseTurn = new JLabel("");
-        whoseTurn.setFont(new Font("Monospaced",Font.BOLD,20));
+        whoseTurn.setFont(new Font("Lucida Sans Unicode", Font.BOLD, 22));
         menu.add(whoseTurn);
         menu.setBorder(BorderFactory.createEmptyBorder(40,550,500,0));
 
+
         //undo button
-        JButton undo = new JButton("Undo Last");
+        JButton undo = new JButton("UNDO");
+        undo.setBackground(new Color(88, 136, 164));
+        undo.setFocusable(false);
+        undo.setFocusPainted(false);
+        undo.setRolloverEnabled(false);
+
         // TODO: UNDO LAST MOVE
         undo.addActionListener(e -> {
 
@@ -48,7 +51,12 @@ public class UI extends SetUp{
         menu.add(undo);
 
         //Quit button
-        JButton quit = new JButton("Quit");
+        JButton quit = new JButton("QUIT");
+        quit.setBackground(new Color(88, 136, 164));
+        quit.setFocusable(false);
+        quit.setFocusPainted(false);
+        quit.setRolloverEnabled(false);
+
         quit.addActionListener(e -> {
             System.exit(0);
         });
@@ -56,6 +64,7 @@ public class UI extends SetUp{
 
         //play again button
         again = new JButton("Play Again?");
+        ButtonSetUp(again);
         again.addActionListener(e -> {
             frame.dispose();
             choiceMenu = new GoldSilverChoice();
@@ -64,8 +73,13 @@ public class UI extends SetUp{
         menu.add(again);
 
         menu.setBackground(Color.DARK_GRAY);
+
+        frame.setBackground(Color.black);
+        frame.add(board);
         frame.add(menu);
         frame.setIconImage(icon.getImage());
+        frame.setVisible(true);
+        frame.setResizable(false);
     }
 
     /**

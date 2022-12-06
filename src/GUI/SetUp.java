@@ -18,6 +18,9 @@ public abstract class SetUp {
     public static void ImageSetUp() {
         backgroundImg = new JLabel(new ImageIcon("src/imgs/warship.png"));
         backgroundImg.setBounds(0, 0, 513, 513);
+    }
+
+    public static void IconSetUp() {
         icon = new ImageIcon("src/imgs/MU.jpg");
     }
 
@@ -67,14 +70,15 @@ public abstract class SetUp {
     }
     public static void TextSetUp(String text){
         description = new JLabel(text);
-        Font font = new Font("Lucida Sans Typewriter", Font.PLAIN, 25);
-        description.setForeground(Color.WHITE);
+        Font font = new Font("Lucida Sans Unicode", Font.PLAIN, 25);
+        description.setForeground(Color.LIGHT_GRAY);
         description.setFont(font);
         description.setOpaque(false);
         setCentre(description);
     }
     public static void setCentre(JComponent component){
         component.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        component.setAlignmentY(Component.CENTER_ALIGNMENT);
     }
     public static void Rules() {
         Font fontR = new Font("Lucida Sans Unicode", Font.PLAIN, 13);

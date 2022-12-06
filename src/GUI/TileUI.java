@@ -18,6 +18,7 @@ public class TileUI extends JPanel {
      */
     TileUI(){
         setBackground(Color.BLACK);
+        square = new Square(5,5);
     }
 
     /**
