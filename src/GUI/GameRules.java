@@ -32,6 +32,7 @@ public class GameRules extends SetUp{
 
         frame = new JFrame("BREAKTHRU");
         ImageSetUp();
+        IconSetUp();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setSize(513,513);

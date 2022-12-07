@@ -25,6 +25,7 @@ public class MainMenu extends SetUp{
         buttonPanel.add(helpBtn);
         layeredPane.add(buttonPanel);
         ImageSetUp();
+        IconSetUp();
         layeredPane.add(backgroundImg);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

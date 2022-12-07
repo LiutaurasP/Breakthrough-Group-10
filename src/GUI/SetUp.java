@@ -1,21 +1,26 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public abstract class SetUp {
 
     static JLabel backgroundImg, gameRules, description;
     static ImageIcon icon;
-    static JPanel buttonPanel, choicePanel;
+    static JPanel buttonPanel, textPanel, optionsPanel;
     static JLayeredPane layeredPane;
     static JButton backBtn;
     static MainMenu menu;
+    static PlayChoice playChoice;
     static GoldSilverChoice choiceMenu;
 
     public static void ImageSetUp() {
         backgroundImg = new JLabel(new ImageIcon("src/imgs/warship.png"));
         backgroundImg.setBounds(0, 0, 513, 513);
+    }
+
+    public static void IconSetUp() {
         icon = new ImageIcon("src/imgs/MU.jpg");
     }
 
@@ -30,30 +35,50 @@ public abstract class SetUp {
         button.setRolloverEnabled(false);
 //        button.setContentAreaFilled(true);
 
+        setCentre(button);
+
         button.setFont(buttonFont);
         button.setBackground(new Color(88, 136, 164));
         button.setForeground(Color.WHITE);
     }
 
+    public static void AdjustButtonSize(JButton button, int width){
+        button.setMinimumSize(new Dimension(width, 40));
+        button.setMaximumSize(new Dimension(width, 40));
+    }
+
     public static void LayoutSetUp() {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setLocation( 210, 170);
+        buttonPanel.setLocation(130, 170);
         buttonPanel.setSize(250, 200);
         buttonPanel.setOpaque(false);
 
-        choicePanel = new JPanel();
-        choicePanel.setLocation(50,50);
-        choicePanel.setSize(413,283);
+        textPanel = new JPanel();
+        textPanel.setLocation(50,30);
+        textPanel.setSize(410,200);
+        textPanel.setBackground(new Color(0, 0, 0, 100));
+
+        optionsPanel = new JPanel();
+        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
+        optionsPanel.setLocation(130, 250);
+        optionsPanel.setSize(250,210);
+        optionsPanel.setOpaque(false);
 
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, 513, 513);
     }
     public static void TextSetUp(String text){
         description = new JLabel(text);
-        Font fontR = new Font("Lucida Sans Typewriter", Font.PLAIN, 25);
-        description.setFont(fontR);
+        Font font = new Font("Lucida Sans Unicode", Font.PLAIN, 25);
+        description.setForeground(Color.LIGHT_GRAY);
+        description.setFont(font);
         description.setOpaque(false);
+        setCentre(description);
+    }
+    public static void setCentre(JComponent component){
+        component.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        component.setAlignmentY(Component.CENTER_ALIGNMENT);
     }
     public static void Rules() {
         Font fontR = new Font("Lucida Sans Unicode", Font.PLAIN, 13);

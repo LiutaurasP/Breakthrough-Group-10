@@ -5,38 +5,53 @@ import Menu.Breakthru;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class GoldSilverManual extends SetUp{
     JFrame frame;
     JButton confirmBtn;
-    JComboBox<String> p1GoldSilverBox, p2GoldSilverBox;
+    JComboBox<String> teamChoiceBox, p2GoldSilverBox;
 
     public GoldSilverManual(){
         frame = GoldSilverChoice.choiceMenu.frame;
-        layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0,0,513,513);
         LayoutSetUp();
 
-        TextSetUp("<html><br/>Select which player will <br/>play as <em>GOLD / SILVER</em>.<br/>"+
-                "If invalid choice is made;<br/><b>Player 1</b>: <em>GOLD</em><br/><b>Player 2</b>: <em>SILVER</em>.<html/>");
-        choicePanel.add(description);
-        choicePanel.add(Box.createRigidArea(new Dimension(413, 10)));
+        TextSetUp("<html><br/>Which player plays <br/>as <em>GOLD / SILVER</em>?<br/><html/>");
 
-        String[] p1GoldOrSilver = {"Player 1", "Gold", "Silver"};
-        p1GoldSilverBox = new JComboBox<>(p1GoldOrSilver);
-        choicePanel.add(p1GoldSilverBox);
+        //player combo boxes
+        String[] p1GoldOrSilver = {"Gold", "Silver"};
+        teamChoiceBox = new JComboBox<>(p1GoldOrSilver);
+        teamChoiceBox.setBorder(BorderFactory.createTitledBorder("Player 1"));
 
-        String[] p2GoldOrSilver = {"Player 2", "Gold", "Silver"};
+        String[] p2GoldOrSilver = {"Gold", "Silver"};
         p2GoldSilverBox = new JComboBox<>(p2GoldOrSilver);
-        choicePanel.add(p2GoldSilverBox);
+        p2GoldSilverBox.setBorder(BorderFactory.createTitledBorder("Player 2"));
+        p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[1]);
 
-        confirmBtn = new JButton("Confirm");
+        //action listeners for setting the opposite team for the other player automagically
+        teamChoiceBox.addActionListener(e -> {
+            if(teamChoiceBox.getSelectedItem() == p1GoldOrSilver[1]){
+                p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[0]);
+            } else {
+                p2GoldSilverBox.setSelectedItem(p1GoldOrSilver[1]);
+            }
+        });
+
+        p2GoldSilverBox.addActionListener(e -> {
+            if(p2GoldSilverBox.getSelectedItem() == p1GoldOrSilver[1]){
+                teamChoiceBox.setSelectedItem(p1GoldOrSilver[0]);
+            } else {
+                teamChoiceBox.setSelectedItem(p1GoldOrSilver[1]);
+            }
+        });
+
+
+        confirmBtn = new JButton("PLAY");
         ButtonSetUp(confirmBtn);
-        confirmBtn.setMinimumSize(new Dimension(150, 40));
-        confirmBtn.setMaximumSize(new Dimension(150, 40));
+//        AdjustButtonSize(confirmBtn, 140);
         confirmBtn.addActionListener(e -> {
             frame.dispose();
-                if(p1GoldSilverBox.getSelectedItem().toString()=="Silver"){
+                if(Objects.equals(teamChoiceBox.getSelectedItem(), "Silver")){
                     System.out.println("reached");
                     new Breakthru(Team.s,Team.g);
                 }
@@ -44,11 +59,22 @@ public class GoldSilverManual extends SetUp{
                     new Breakthru(Team.g, Team.s);
                 }
         });
-        choicePanel.add(confirmBtn);
 
-        layeredPane.add(choicePanel);
+        backBtn = new JButton("BACK");
+        ButtonSetUp(backBtn);
+        backBtn.addActionListener(e -> {frame.dispose(); choiceMenu = new GoldSilverChoice();});
 
+        textPanel.add(description);
+        optionsPanel.add(teamChoiceBox);
+        optionsPanel.add(p2GoldSilverBox);
+        optionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        optionsPanel.add(confirmBtn);
+        optionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        optionsPanel.add(backBtn);
+        layeredPane.add(textPanel);
+        layeredPane.add(optionsPanel);
         ImageSetUp();
+        IconSetUp();
         layeredPane.add(backgroundImg);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

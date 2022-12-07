@@ -1,15 +1,18 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.text.Position;
 import java.awt.*;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 /**
  * A class that is the main frame of the UI. It contains board UI, menu (buttons,labels).
  */
-public class UI extends JFrame{
+public class UI extends SetUp{
+    JFrame frame;
     Object lock;
     BoardUI board;
-
+    JButton again;
     JLabel whoseTurn;
 
     /**
@@ -18,38 +21,75 @@ public class UI extends JFrame{
      */
     public UI(Object lock) {
         this.lock = lock;
+        frame = new JFrame();
         board = new BoardUI(lock);
-        setTitle("Menu.Breakthru");
-        setSize(770, 587);
-        getContentPane().setBackground(Color.BLACK);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setTitle("BREAKTHRU");
+        IconSetUp();
+        frame.setSize(770, 587);
+        frame.setLocationRelativeTo(null);
+        frame.setBackground(Color.BLACK);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //setResizable(false);
-        setVisible(true);
-
-        getContentPane().add(board);
-        setBackground(Color.black);
         JPanel menu = new JPanel();
         whoseTurn = new JLabel("");
-        whoseTurn.setFont(new Font("Monospaced",Font.BOLD,20));
+        whoseTurn.setFont(new Font("Lucida Sans Unicode", Font.BOLD, 22));
         menu.add(whoseTurn);
         menu.setBorder(BorderFactory.createEmptyBorder(40,550,500,0));
-        JButton undo = new JButton("Undo Last");
+
+
+        //undo button
+        JButton undo = new JButton("UNDO");
+        undo.setBackground(new Color(88, 136, 164));
+        undo.setFocusable(false);
+        undo.setFocusPainted(false);
+        undo.setRolloverEnabled(false);
+
         // TODO: UNDO LAST MOVE
         undo.addActionListener(e -> {
 
         });
         menu.add(undo);
-        JButton quit = new JButton("Quit");
+
+        //Quit button
+        JButton quit = new JButton("QUIT");
+        quit.setBackground(new Color(88, 136, 164));
+        quit.setFocusable(false);
+        quit.setFocusPainted(false);
+        quit.setRolloverEnabled(false);
+
         quit.addActionListener(e -> {
             System.exit(0);
         });
         menu.add(quit);
-        menu.setBackground(Color.GRAY);
-        getContentPane().add(menu);
 
+        //play again button
+        again = new JButton("Play Again?");
+        ButtonSetUp(again);
+        again.addActionListener(e -> {
+            frame.dispose();
+            choiceMenu = new GoldSilverChoice();
+        });
+        again.setVisible(false);
+        menu.add(again);
 
+        menu.setBackground(Color.DARK_GRAY);
+
+        frame.setBackground(Color.black);
+        frame.add(board);
+        frame.add(menu);
+        frame.setIconImage(icon.getImage());
+        frame.setVisible(true);
+        frame.setResizable(false);
     }
+
+    /**
+     * Play again button getter.
+     * @return
+     */
+    public JButton getAgain() {
+        return again;
+    }
+
     /**
      * Turn label getter.
      * @return Returns turn label.
