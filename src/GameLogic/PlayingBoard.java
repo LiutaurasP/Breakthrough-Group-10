@@ -20,6 +20,10 @@ public class PlayingBoard {
         this.board = createBoard();
     }
 
+    public PlayingBoard(Square[][] board) {
+        this.board = board;
+    }
+
     /**
      * Logical board getter.
      * @return Returns logical board.
@@ -35,6 +39,10 @@ public class PlayingBoard {
      * @return Returns the square object in specified coordinates.
      */
     public Square getSquare(int x, int y){ return board[y][x];}
+//
+//    public void movePiece(int oldX, int oldY, int newX, int newY) {
+//        board[oldX][oldY].
+//    }
 
     /**
      * A function that builds a readable string for the current state of the logical board.
