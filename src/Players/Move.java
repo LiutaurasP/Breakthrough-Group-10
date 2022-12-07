@@ -16,7 +16,7 @@ public class Move {
      * @param newX To X.
      * @param newY To Y.
      */
-    Move(int oldX, int oldY, int newX, int newY){
+    public Move(int oldX, int oldY, int newX, int newY){
         this.oldX=oldX;
         this.oldY=oldY;
         this.newX=newX;
@@ -26,7 +26,7 @@ public class Move {
     /**
      * Constructor for when an empty move class might be needed.
      */
-    Move(){
+    public Move(){
     }
 
     /**
