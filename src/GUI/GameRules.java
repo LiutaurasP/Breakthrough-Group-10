@@ -30,7 +30,7 @@ public class GameRules extends SetUp{
         buttonPanel.add(scrollPane);
         buttonPanel.add(backBtn);
 
-        frame = new JFrame("BREAKTHRU");
+        frame = new JFrame("BREAKTHRU - press the Page Down/Up key to scroll");
         ImageSetUp();
         IconSetUp();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -71,8 +71,8 @@ public class GoldSilverRandom extends SetUp{
         frame.setVisible(true);
     }
     public void specialTextSetUp(JLabel label, int fontSize){
-        label.setFont(new Font("Lucida Sans Typewriter", Font.ITALIC, fontSize));
-        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Dialog", Font.ITALIC, fontSize));
+        label.setForeground(new Color(232, 232, 232));
         label.setBackground(new Color(0, 0, 0, 100));
         setCentre(label);
     }
@@ -80,7 +80,7 @@ public class GoldSilverRandom extends SetUp{
         LayoutSetUp();
 
         headerLabel = new JLabel("Flipping coin ...", JLabel.CENTER);
-        specialTextSetUp(headerLabel, 30);
+        specialTextSetUp(headerLabel, 20);
         optionsPanel.add(headerLabel);
 
         JLabel imgLabel = new JLabel(gif);
@@ -88,7 +88,7 @@ public class GoldSilverRandom extends SetUp{
         optionsPanel.add(imgLabel);
 
         statusLabel = new JLabel("", JLabel.CENTER);
-        specialTextSetUp(statusLabel, 20);
+        specialTextSetUp(statusLabel, 15);
         optionsPanel.add(statusLabel);
 
         ready = new JLabel("Please wait", JLabel.CENTER);
@@ -114,19 +114,19 @@ public class GoldSilverRandom extends SetUp{
                 imgLabel.setIcon(HFloat);
                 headerLabel.setText("Heads!");
                 if (playersGuess.equals("Heads")){
-                    statusLabel.setText("<html>Player 1: <b>GOLD</b>  Player 2: <b>SILVER<b/>.<html/>");
+                    statusLabel.setText("<html>Player 1: <b>GOLD</b>         Player 2: <b>SILVER</b> . </html>");
                     player1.set(Team.g);}
                 else {
-                    statusLabel.setText("<html>Player 1: <b>SILVER</b>  Player 2: <b>GOLD<b/>.<html/>");
+                    statusLabel.setText("<html>Player 1: <b>SILVER</b>         Player 2: <b>GOLD</b> . </html>");
                     player1.set(Team.s);}
             } else {
                 imgLabel.setIcon(TFloat);
                 headerLabel.setText("Tails!");
                 if (playersGuess.equals("Tails")){
-                    statusLabel.setText("<html>Player 1: <b>GOLD<b/>  Player 2: <b>SILVER.<html/>");
+                    statusLabel.setText("<html>Player 1: <b>GOLD</b>    Player 2: <b>SILVER</b>.</html>");
                     player1.set(Team.g);}
                 else{
-                    statusLabel.setText("<html>Player 1: <b>SILVER<b/>  Player 2: <b>GOLD<b/>.<html/>");
+                    statusLabel.setText("<html>Player 1: <b>SILVER</b>    Player 2: <b>GOLD</b>.</html>");
                     player1.set(Team.s);}
             }
             ready.setText("Ready to play?");
