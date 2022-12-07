@@ -1,5 +1,6 @@
 package Players;
 
+import GameLogic.PlayingBoard;
 import GameLogic.Team;
 
 /**
@@ -19,7 +20,10 @@ public class AI extends Player{
      * @return
      */
     @Override
-    public Move getMove() {
+    public Move getHMove() {
+        return null;
+    }
+    public PlayingBoard getAMove(PlayingBoard board) {
         return null;
     }
 }

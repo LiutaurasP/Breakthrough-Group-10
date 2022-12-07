@@ -1,5 +1,6 @@
 package Players;
 import GUI.UI;
+import GameLogic.PlayingBoard;
 import GameLogic.Team;
 import java.awt.*;
 
@@ -27,7 +28,7 @@ public class Human extends Player {
      * @return Returns a move a human made.
      */
     @Override
-    public Move getMove() {
+    public Move getHMove() {
         Move move = new Move();
 
         while (true){
@@ -56,5 +57,10 @@ public class Human extends Player {
 
 
         return move;
+    }
+
+    @Override
+    public PlayingBoard getAMove(PlayingBoard board) {
+        return null;
     }
 }

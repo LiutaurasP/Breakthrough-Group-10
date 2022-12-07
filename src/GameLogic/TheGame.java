@@ -2,6 +2,7 @@ package GameLogic;
 
 import GUI.UI;
 import Pieces.AbstractPiece;
+import Players.Human;
 import Players.Move;
 import Players.Player;
 import java.awt.*;
@@ -58,58 +59,70 @@ public class TheGame {
                     ui.getWhoseTurn().setForeground(Color.WHITE);
                     ui.getWhoseTurn().setText("Silver's turn!");
                 }
-
-                Move move;
-                // First move
-                while (!moved) {
-                    attackMove = false;
-                    flagMove = false;
-                    silverWon = false;
-
-                    // Getting input from the player.
-                    move = player.getMove();
-
-                    // Checking whether the player tried moving the flag.
-                    if (board.getBoard()[move.getOldY()][move.getOldX()].getCurrentPiece().toString().equals("f")) {
-                        flagMove = true;
+                // AI player handling
+                if (!(player instanceof Human)){
+                    board = player.getAMove(board);
+                    ui.getBoard().updateBoard(board);
+                    if(isFlagAtBorder(board.getBoard())) break gameloop;
+                    if(checkForSilverWin(board.getBoard())){
+                        silverWon=true;
+                        break gameloop;
                     }
-
-                    // Checking whether the player tried to perform flag capture.
-                    if (board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece() != null &&
-                            board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece().toString().equals("f")) {
-                        silverWon = true;
-                    }
-
-                    // Checking whether the player tried to perform an attack move.
-                    if (board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece() != null && (board.getBoard()[move.getOldY()][move.getOldX()].getCurrentPiece().color != board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece().color)) {
-                        attackMove = true;
-                    }
-
-                    // This function tries to move the piece from the user inputs, if it fails to do so
-                    // it means that the move wasn't legal, so it goes to the start of the loop again and
-                    // waits for a legal first move.
-                    moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), false);
                 }
-
-                // From the previous loop we have information whether flag capture was performed, so if it
-                // was, it means the silver player won.
-                if (silverWon) {
-                    System.out.println("Silver won");
-                    break gameloop;
-                }
-                // Second move
-                moved = false;
-                // If player didn't move a flag or attack it means that they are eligible for a second move.
-                if (!flagMove && !attackMove) {
+                // Human player handling
+                else {
+                    Move move;
+                    // First move
                     while (!moved) {
-                        move = player.getMove();
-                        moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), true);
+                        attackMove = false;
+                        flagMove = false;
+                        silverWon = false;
+
+                        // Getting input from the player.
+                        move = player.getHMove();
+
+                        // Checking whether the player tried moving the flag.
+                        if (board.getBoard()[move.getOldY()][move.getOldX()].getCurrentPiece().toString().equals("f")) {
+                            flagMove = true;
+                        }
+
+                        // Checking whether the player tried to perform flag capture.
+                        if (board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece() != null &&
+                                board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece().toString().equals("f")) {
+                            silverWon = true;
+                        }
+
+                        // Checking whether the player tried to perform an attack move.
+                        if (board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece() != null && (board.getBoard()[move.getOldY()][move.getOldX()].getCurrentPiece().color != board.getBoard()[move.getNewY()][move.getNewX()].getCurrentPiece().color)) {
+                            attackMove = true;
+                        }
+
+                        // This function tries to move the piece from the user inputs, if it fails to do so
+                        // it means that the move wasn't legal, so it goes to the start of the loop again and
+                        // waits for a legal first move.
+                        moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), false);
                     }
-                }
-                if (isFlagAtBorder(board.getBoard())){
-                    System.out.println("Gold won");
-                    break gameloop;
-                }
+
+                    // From the previous loop we have information whether flag capture was performed, so if it
+                    // was, it means the silver player won.
+                    if (silverWon) {
+                        System.out.println("Silver won");
+                        break gameloop;
+                    }
+                    // Second move
+                    moved = false;
+                    // If player didn't move a flag or attack it means that they are eligible for a second move.
+                    if (!flagMove && !attackMove) {
+                        while (!moved) {
+                            move = player.getHMove();
+                            moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), true);
+                        }
+                    }
+                    if (isFlagAtBorder(board.getBoard())){
+                        System.out.println("Gold won");
+                        break gameloop;
+                    }}
+
             }
         }
         if (silverWon) {
@@ -121,6 +134,15 @@ public class TheGame {
             ui.getWhoseTurn().setText("Gold Won!");
         }
         System.out.println("Reached the end of the game loop!");
+    }
+
+    private boolean checkForSilverWin(Square[][] arr) {
+        for (int i = 0; i < board.SIZE_OF_BOARD; i++) {
+            for (int j = 0; j < board.SIZE_OF_BOARD; j++) {
+                if(arr[i][j].getCurrentPiece().equals("f")) return false;
+            }
+        }
+        return true;
     }
 
     /**

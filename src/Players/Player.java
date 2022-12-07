@@ -1,4 +1,5 @@
 package Players;
+import GameLogic.PlayingBoard;
 import GameLogic.Team;
 
 /**
@@ -19,8 +20,8 @@ abstract public class Player {
      * Typical function to get the next move from the player.
      * @return Returns a move that player wishes to play.
      */
-    public abstract Move getMove();
-
+    public abstract Move getHMove();
+    public abstract PlayingBoard getAMove(PlayingBoard board);
     /**
      * Team color getter.
      * @return Returns team color.
