@@ -1,5 +1,6 @@
 package Menu;
 
+import Bots.RandomBot;
 import GUI.UI;
 import GameLogic.PlayingBoard;
 import GameLogic.Team;
@@ -41,7 +42,7 @@ public class Breakthru implements Runnable {
         PlayingBoard board = new PlayingBoard();
         UI ui = new UI(lock);
         Player p1 = new Human(player1,lock,ui);
-        Player p2 = new Human(player2,lock,ui);
+        Player p2 = new RandomBot(player2);
         System.out.println(board);
         TheGame game = new TheGame(board, p1, p2, ui);
 

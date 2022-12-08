@@ -7,6 +7,7 @@ import Players.Move;
 import Players.Player;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The main class containing game loop and helper functions for it.
@@ -68,6 +69,7 @@ public class TheGame {
                         silverWon=true;
                         break gameloop;
                     }
+                    System.out.println("blet");
                 }
                 // Human player handling
                 else {
@@ -139,11 +141,39 @@ public class TheGame {
     private boolean checkForSilverWin(Square[][] arr) {
         for (int i = 0; i < board.SIZE_OF_BOARD; i++) {
             for (int j = 0; j < board.SIZE_OF_BOARD; j++) {
-                if(arr[i][j].getCurrentPiece().equals("f")) return false;
+                if(arr[i][j].getCurrentPiece()!= null && arr[i][j].getCurrentPiece().toString().equals("f")) return false;
             }
         }
         return true;
     }
+    /*
+          1. GRAB THE CURR BOARD (currBoard = board.getBoard())
+          2. ITERATE THROUGH PIECES (for(i){for(j){currBoard[i][j].getCurrentPiece}})
+          3. FOR EVERY PIECE GETALLPOSSIBLEMOVES (getAllPossibleMoves(currBoard[i][j].getCurrentPiece))
+          4. FOR EVERY POSSIBLE MOVE THAT WE GET FROM 3 MAKE THAT MOVE (for(possibleSquares:PossibleMoves){currentPiece->(move to) possibleSquares})
+          5. AFTER THE MOVE SAVE THE BOARD IN ALL ALL POSSIBLE MOVES ARRAY LIST
+           */
+//    ArrayList<Square[][]> getAllPossibleBoards(Square[][] arr, Team team){
+//        for (int i = 0; i < arr.length ; i++) {
+//            for (int j = 0; j < arr.length ; j++) {
+//                if(arr[i][j].getCurrentPiece()!=null && arr[i][j].getCurrentPiece().getColor()==team){
+//                    ArrayList <Square> allMoves = getAllPossibleMoves(arr[i][j].currentPiece,false);
+//                    for (Square move : allMoves) {
+//                        Square[][] copy=Arrays.stream(arr).map(a ->  Arrays.copyOf(a, a.length)).toArray(Square[][]::new);
+//                        copy[i][j].currentPiece = null;
+//                        if(arr[y][x].currentPiece!=null){ // ATTACK MOVE
+//
+//                        }
+//                        arr[to.y][to.x].setCurrentPiece(piece);
+//                        move(arr, arr[i][j].currentPiece, move);
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+
+
 
     /**
      * A function that gets all legal moves for a specified piece.
@@ -270,3 +300,4 @@ public class TheGame {
         return false;
     }
 }
+

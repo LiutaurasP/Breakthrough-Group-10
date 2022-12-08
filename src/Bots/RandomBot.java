@@ -77,8 +77,8 @@ public class RandomBot extends Player {
      */
     @Override
     public PlayingBoard getAMove(PlayingBoard boardP) {
-        Square[][] arr = board.getBoard();
-        updatePieces();
+        Square[][] arr = boardP.getBoard();
+        updatePieces(boardP);
 
         // generate a random piece out of the available pieces to move
         AbstractPiece currentPiece = availablePieces.get(randPiece.nextInt(availablePieces.size()));
@@ -86,7 +86,7 @@ public class RandomBot extends Player {
         oldY = currentPiece.y;
 
         // get all possible moves and choose a random one to make
-        ArrayList<Square> possibleMoves = getAllPossibleMoves(currentPiece, false);
+        ArrayList<Square> possibleMoves = getAllPossibleMoves(boardP, currentPiece, false);
         upperMove = possibleMoves.size();
         intMove = randMove.nextInt(upperMove);
 
@@ -112,7 +112,7 @@ public class RandomBot extends Player {
             oldY = currentPiece.y;
 
             // get all possible moves and choose a random one to make
-            possibleMoves = getAllPossibleMoves(currentPiece, true);
+            possibleMoves = getAllPossibleMoves(boardP,currentPiece, true);
             upperMove = possibleMoves.size();
             intMove = randMove.nextInt(upperMove);
 
@@ -135,7 +135,7 @@ public class RandomBot extends Player {
     /**
      * Method that updates the array of available pieces we can move.
      */
-    private void updatePieces() {
+    private void updatePieces(PlayingBoard board) {
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
                 if (board.getSquare(i, j).getCurrentPiece() != null && this.getTeam().equals(board.getSquare(i, j).getCurrentPiece().getColor())) {
@@ -151,10 +151,10 @@ public class RandomBot extends Player {
 
             arr[oldY][oldX].setCurrentPiece(null);
             arr[newY][newX].setCurrentPiece(piece);
-            piece.setX(newX);
-            piece.setY(newY);
+            piece.setY(newX);
+            piece.setX(newY);
         }
-
+        
         return arr;
     }
 
@@ -166,7 +166,7 @@ public class RandomBot extends Player {
      *                     - 'false' when you're moving the flag or when you made no move yet.
      * @return Returns a list of all legal moves for the piece.
      */
-    public ArrayList<Square> getAllPossibleMoves(AbstractPiece piece, boolean isSecondMove) {
+    public ArrayList<Square> getAllPossibleMoves(PlayingBoard board, AbstractPiece piece, boolean isSecondMove) {
         ArrayList<Square> allPossibleMoves = new ArrayList<>();
         if (isSecondMove && piece.toString().equals("f")) {
             return allPossibleMoves;
