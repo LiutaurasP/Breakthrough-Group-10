@@ -39,7 +39,7 @@ public class TestRandom implements Runnable{
         System.out.println(board);
         TheGame game = new TheGame(board, p1, p2, ui);
 
-        ui.getBoard().updateBoard(board);
+      //  ui.getBoard().updateBoard(board);
         System.out.println(board.toString());
         game.play();
     }

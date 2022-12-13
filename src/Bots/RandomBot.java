@@ -15,7 +15,9 @@ import java.util.Random;
  * 5.
  **/
 public class RandomBot extends Player {
+    TripleT ttt = new TripleT(Team.g);
     PlayingBoard board;
+    Team side;
 
     public Random randMove, randPiece; // random variables to
     public int upperMove, upperPiece, intMove;
@@ -29,6 +31,7 @@ public class RandomBot extends Player {
      */
     public RandomBot(Team team) {
         super(team);
+        side = team;
         randMove = new Random();
         randPiece = new Random();
         if(this.getTeam().equals(Team.s)) {
@@ -77,54 +80,63 @@ public class RandomBot extends Player {
      */
     @Override
     public PlayingBoard getAMove(PlayingBoard boardP) {
+        
         Square[][] arr = boardP.getBoard();
-        updatePieces(boardP);
+        ArrayList<int[][]> moves = ttt.getAllPossibleBoards(arr, side);
 
-        // generate a random piece out of the available pieces to move
-        AbstractPiece currentPiece = availablePieces.get(randPiece.nextInt(availablePieces.size()));
-        oldX = currentPiece.x;
-        oldY = currentPiece.y;
+        //ttt.sleep(1000);
+        int[][] chosenOne = moves.get( (int)(Math.random()*moves.size()) );
+        Square[][] squareChosenOne = TripleT.intToSquare(chosenOne);
+        PlayingBoard board = new PlayingBoard(squareChosenOne);
+        return board;
+        // Square[][] arr = boardP.getBoard();
+        // updatePieces(boardP);
 
-        // get all possible moves and choose a random one to make
-        ArrayList<Square> possibleMoves = getAllPossibleMoves(boardP, currentPiece, false);
-        upperMove = possibleMoves.size();
-        intMove = randMove.nextInt(upperMove);
+        // // generate a random piece out of the available pieces to move
+        // AbstractPiece currentPiece = availablePieces.get(randPiece.nextInt(availablePieces.size()));
+        // oldX = currentPiece.x;
+        // oldY = currentPiece.y;
 
-        newX = possibleMoves.get(intMove).getX();
-        newY = possibleMoves.get(intMove).getY();
+        // // get all possible moves and choose a random one to make
+        // ArrayList<Square> possibleMoves = getAllPossibleMoves(boardP, currentPiece, false);
+        // upperMove = possibleMoves.size();
+        // intMove = randMove.nextInt(upperMove);
 
-        // update the board with the new positions of the moved piece
-        arr = updateBoard(arr, oldX, oldY, newX, newY);
+        // newX = possibleMoves.get(intMove).getX();
+        // newY = possibleMoves.get(intMove).getY();
 
-        if(!(currentPiece instanceof Flag)) {
-            if((newX == oldX + 1 && (newY == oldY + 1 || newY == oldY - 1)) ||
-                    (newX == oldX - 1 && (newY == oldY + 1 || newY == oldY - 1))) {
-                return new PlayingBoard(arr);
-            }
+        // // update the board with the new positions of the moved piece
+        // arr = updateBoard(arr, oldX, oldY, newX, newY);
 
-            // get new random piece out of the available pieces
-            currentPiece = availablePieces.get(randPiece.nextInt(availablePieces.size()));
-            // get new random piece until you don't get the flag
-            while(currentPiece instanceof Flag) {
-                currentPiece = availablePieces.get(randPiece.nextInt(availablePieces.size()));
-            }
-            oldX = currentPiece.x;
-            oldY = currentPiece.y;
+        // if(!(currentPiece instanceof Flag)) {
+        //     if((newX == oldX + 1 && (newY == oldY + 1 || newY == oldY - 1)) ||
+        //             (newX == oldX - 1 && (newY == oldY + 1 || newY == oldY - 1))) {
+        //         return new PlayingBoard(arr);
+        //     }
 
-            // get all possible moves and choose a random one to make
-            possibleMoves = getAllPossibleMoves(boardP,currentPiece, true);
-            upperMove = possibleMoves.size();
-            intMove = randMove.nextInt(upperMove);
+        //     // get new random piece out of the available pieces
+        //     currentPiece = availablePieces.get(randPiece.nextInt(availablePieces.size()));
+        //     // get new random piece until you don't get the flag
+        //     while(currentPiece instanceof Flag) {
+        //         currentPiece = availablePieces.get(randPiece.nextInt(availablePieces.size()));
+        //     }
+        //     oldX = currentPiece.x;
+        //     oldY = currentPiece.y;
 
-            newX = possibleMoves.get(intMove).getX();
-            newY = possibleMoves.get(intMove).getY();
+        //     // get all possible moves and choose a random one to make
+        //     possibleMoves = getAllPossibleMoves(boardP,currentPiece, true);
+        //     upperMove = possibleMoves.size();
+        //     intMove = randMove.nextInt(upperMove);
 
-            // update the board with the new positions of the moved piece
-            arr = updateBoard(arr, oldX, oldY, newX, newY);
-        }
+        //     newX = possibleMoves.get(intMove).getX();
+        //     newY = possibleMoves.get(intMove).getY();
 
-        // return a new PlayingBoard with the moves made
-        return new PlayingBoard(arr);
+        //     // update the board with the new positions of the moved piece
+        //     arr = updateBoard(arr, oldX, oldY, newX, newY);
+        // }
+
+        // // return a new PlayingBoard with the moves made
+        // return new PlayingBoard(arr);
     }
 
     @Override

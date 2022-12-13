@@ -1,7 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.text.Position;
 import java.awt.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 

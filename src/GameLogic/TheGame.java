@@ -7,7 +7,6 @@ import Players.Move;
 import Players.Player;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The main class containing game loop and helper functions for it.
@@ -44,9 +43,11 @@ public class TheGame {
         Boolean silverWon = false;
         Boolean attackMove = false;
 
+        int i=0;
         gameloop:
         while (true) {
             for (Player player : players) {
+                System.out.println("Turn "+ i++);
                 // Resetting logical switches that might have been altered with from previous iterations.
                 flagMove = false;
                 moved = false;
@@ -62,14 +63,15 @@ public class TheGame {
                 }
                 // AI player handling
                 if (!(player instanceof Human)){
-                    board = player.getAMove(board);
+                    PlayingBoard aiMove = player.getAMove(board);
+                    board = new PlayingBoard(aiMove.getBoard());
                     ui.getBoard().updateBoard(board);
                     if(isFlagAtBorder(board.getBoard())) break gameloop;
                     if(checkForSilverWin(board.getBoard())){
                         silverWon=true;
                         break gameloop;
                     }
-                    System.out.println("blet");
+                   // System.out.println("blet");
                 }
                 // Human player handling
                 else {
@@ -102,9 +104,12 @@ public class TheGame {
                         // This function tries to move the piece from the user inputs, if it fails to do so
                         // it means that the move wasn't legal, so it goes to the start of the loop again and
                         // waits for a legal first move.
+                        System.out.println(move.getOldX()+" "+move.getOldY()+" "+ move.getNewX()+" "+ move.getNewY());
+                        System.out.println(board.toString());
                         moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), false);
+                        System.out.println("bro" + attackMove + flagMove + moved);
                     }
-
+                    ui.getBoard().updateBoard(board);
                     // From the previous loop we have information whether flag capture was performed, so if it
                     // was, it means the silver player won.
                     if (silverWon) {
@@ -119,6 +124,7 @@ public class TheGame {
                             move = player.getHMove();
                             moved = movePiece(board.getBoard(), move.getOldX(), move.getOldY(), move.getNewX(), move.getNewY(), true);
                         }
+                        ui.getBoard().updateBoard(board);
                     }
                     if (isFlagAtBorder(board.getBoard())){
                         System.out.println("Gold won");
@@ -135,6 +141,7 @@ public class TheGame {
             ui.getWhoseTurn().setForeground(Color.YELLOW);
             ui.getWhoseTurn().setText("Gold Won!");
         }
+        System.out.println(board.toString());
         System.out.println("Reached the end of the game loop!");
     }
 
@@ -189,7 +196,7 @@ public class TheGame {
         if (piece == null) {
             return null;
         }
-
+        System.out.println("GAPM:" + piece.x + " "+ piece.y);
         int x = piece.x;
         int y = piece.y;
         Team teamOfPiece = piece.color;
@@ -256,6 +263,7 @@ public class TheGame {
     public boolean movePiece(Square[][] arr, int oldX, int oldY, int newX, int newY, boolean isSecondMove) {
         if (arr[oldY][oldX].getCurrentPiece() != null) {
             AbstractPiece piece = arr[oldY][oldX].getCurrentPiece();
+            System.out.println("MP: "+ piece.x +" "+piece.y);
             //System.out.println(piece.getColor().toString());
 
             ArrayList<Square> possibleMoves = getAllPossibleMoves(piece, isSecondMove);
@@ -264,6 +272,7 @@ public class TheGame {
                 return false;
             }
             for (Square possibleMove : possibleMoves) {
+                System.out.println(possibleMove.getX()+" "+ possibleMove.getY());
                 if (possibleMove.getX() == newX && possibleMove.getY() == newY) {
                     arr[oldY][oldX].setCurrentPiece(null);
                     arr[newY][newX].setCurrentPiece(piece);
@@ -272,6 +281,7 @@ public class TheGame {
                     return true;
                 }
             }
+            System.out.println("no moves");
             return false;
         }
         return false;
